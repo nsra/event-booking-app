@@ -1,5 +1,7 @@
 {
     "env": {
-        "PORT": 4000
+        "PORT": 4100,
+        "DB_URL": "mongodb+srv://HsoubAcademyGraphQLCourse:654321abc@cluster0.yy3al.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+        "JWT_SECRET": "f1BtnWgD3VKY09"
     }
 }
