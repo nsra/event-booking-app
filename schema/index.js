@@ -2,8 +2,8 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
     type Query {
-        events: [Event!]!
-        bookings: [Booking!]! #authenticated user bookings
+        events: [Event!]
+        bookings: [Booking!] #authenticated user bookings
         # greeting: String!
     }
 

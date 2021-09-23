@@ -5,14 +5,12 @@ const { resolvers } = require('./resolvers/index');
 const mongoose = require('mongoose');
 const User = require('./models/user');
 const jwt = require('jsonwebtoken');
-const cors = require('cors')
 async function startApolloServer(typeDefs, resolvers) {
     const app = express();
-    const corsOptions = {
-        origin: process.env.APP_URL,
-        credentials: true 
-    };
-    app.use(cors(corsOptions));
+    app.use((req, res, next) => {
+        res.setHeader('Access-Control-Allow-Origin', process.env.APP_URL);
+        next();
+    });
     const server = new ApolloServer({
         typeDefs,
         resolvers,

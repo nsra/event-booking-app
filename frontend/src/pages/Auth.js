@@ -2,23 +2,24 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_USER, LOGIN } from '../queries'
 import AuthContext from '../context/auth-context';
+import Error from '../components/Error';
 
 export default function AuthPage() {
     const [isLogin, setIsLogin] = useState(true);
     const value = useContext(AuthContext);
+    const [alert, setAlert] = useState("");
 
     function Auth() {
         const [username, setUsername] = useState("");
         const [email, setEmail] = useState("");
         const [password, setPassword] = useState("");
         const [auth, { loading, data }] = useMutation(isLogin ? LOGIN : CREATE_USER, {
-            onError: (error) => console.log(error),
+            onError: (error) => setAlert(error.message),
             onCompleted: () => {
                 if (!isLogin) {
-                    console.log("تم إنشاء الحساب بنجاح");
+                    setAlert("تم إنشاء الحساب بنجاح");
                     setIsLogin(true)
                 }
-                if (isLogin) console.log("تم تسجيل الدخول بنجاح")
             }
         });
         useEffect(() => {
@@ -32,14 +33,12 @@ export default function AuthPage() {
         }, [data, loading]);
 
         if (loading) return 'يتم الآن جلب البيانات...';
-        if (isLogin && data) {
-            console.log(data.login.token);
-        };
 
         return (
             <form className='auth-form' onSubmit={() =>
                 auth({ variables: !isLogin ? { username: username, email: email, password: password } : { email: email, password: password } })
             }>
+                <Error error={alert} />
                 {!isLogin &&
                     <div className='form-control'>
                         <label htmlFor='username'>اسم المستخدم</label>
