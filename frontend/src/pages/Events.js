@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useQuery, useMutation, useApolloClient } from '@apollo/client';
-import { EVENTS, BOOK_EVENT, CREATE_EVENT } from '../queries'
+import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client';
+import { EVENTS, BOOK_EVENT, CREATE_EVENT, EVENT_ADDED } from '../queries'
 import EventItem from '../components/EventItem';
 import Modal from '../components/Modal';
 import Backdrop from '../components/Backdrop';
@@ -20,17 +20,27 @@ export default function EventsPage() {
     const [description, setDescription] = useState("");
     const client = useApolloClient();
 
+    useSubscription(EVENT_ADDED, {
+        onSubscriptionData: async ({ subscriptionData }) => {
+            if (subscriptionData.data) {
+                const addedEvent = subscriptionData.data.eventAdded;
+                setAlert(`حدث جديد بعنوان: ${addedEvent.title}، أُضيف للتو`);
+            }
+            // if (subscriptionData.errors) setAlert("خطأ في جلب الأحداث الجديدة");
+        }
+    })
+
     function EventList() {
         const { loading, error, data } = useQuery(EVENTS, {
             onCompleted: () => setEvents(data.events)
         });
         if (loading) { return <p>loading...</p> }
         if (error) { setAlert(error.message); return; }
-       
+
         client.refetchQueries({
             include: "active",
         });
-    
+
         return (
             <ul className='events__list'>
                 {data.events.map(event => (
@@ -73,7 +83,7 @@ export default function EventsPage() {
     }, [data, createEventLoading, createEventError, value.userId]);// eslint-disable-line
 
     if (createEventLoading) { return <p>loading...</p> }
- 
+
     const showDetailHandler = eventId => {
         const clickedEvent = events.find(event => event._id === eventId);
         setSelectedEvent(clickedEvent);

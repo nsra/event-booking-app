@@ -20,7 +20,7 @@ const authResolver = {
             }
             return { userId: user._id, token: jwt.sign(userForToken, process.env.JWT_SECRET) }
         },
-        
+
         createUser: async (_, args) => {
             try {
                 const existingUser = await User.findOne({ email: args.userInput.email });

@@ -58,9 +58,9 @@ const typeDefs = gql`
         date: String!
     }
 
-    # type Subscription {
-    #     eventAdded: Event!
-    # } 
+    type Subscription {
+        eventAdded: Event!
+    } 
 `;
 
 module.exports = { typeDefs };
