@@ -28,7 +28,7 @@ export default function EventsPage() {
         if (error) { setAlert(error.message); return; }
        
         client.refetchQueries({
-            include: [EVENTS],
+            include: "active",
         });
     
         return (
