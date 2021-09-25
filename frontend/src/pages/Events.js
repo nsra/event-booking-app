@@ -43,8 +43,8 @@ export default function EventsPage() {
         });
 
         return (
-            <ul className='events__list'>
-                {events.map(event => (
+            <ul className='events-list'>
+                {data.events.map(event => (
                     <EventItem
                         key={event._id}
                         {...event}

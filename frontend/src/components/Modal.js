@@ -9,9 +9,9 @@ export default function Modal({
 }) {
   return (
     <div className='modal'>
-      <header className='modal__header'>{title}</header>
-      <section className='modal__content'>{children}</section>
-      <section className='modal__actions'>
+      <header className='modal-header'>{title}</header>
+      <section className='modal-content'>{children}</section>
+      <section className='modal-actions'>
         <button className='btn' onClick={onConfirm}>
           {confirmText}
         </button>

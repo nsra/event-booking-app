@@ -42,7 +42,7 @@ export default function BookingsPage() {
                 {loading || cancelBookingLoading ? (
                     <Spinner />
                 ) : (
-                    <ul className='bookings__list'>
+                    <ul className='bookings-list'>
                         {bookings.map(booking => (
                             <BookingItem
                                 key={booking._id}

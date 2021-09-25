@@ -5,7 +5,7 @@ export default function EventItem({ _id, title, price, date, creator, onDetail }
     const value = useContext(AuthContext);
 
     return (
-        <li className='events__list-item'>
+        <li className='events-list-item'>
             <div>
                 <h1>{title}</h1>
                 <h2>

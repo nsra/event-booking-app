@@ -22,17 +22,17 @@ body {
   font-size: 18px;
 }
 
-.main-navigation__logo h1 {
+.main-navigation-logo h1 {
   margin: 0;
   font-size: 1.5rem;
   color: #dfcefc;
 }
 
-.main-navigation__items {
+.main-navigation-items {
   margin-left: 1.5rem;
 }
 
-.main-navigation__items ul {
+.main-navigation-items ul {
   display: flex;
   list-style: none;
   padding: 0;
@@ -40,12 +40,12 @@ body {
   align-items: center;
 }
 
-.main-navigation__items li {
+.main-navigation-items li {
   margin: 0 1rem;
 }
 
-.main-navigation__items a,
-.main-navigation__items button {
+.main-navigation-items a,
+.main-navigation-items button {
   text-decoration: none;
   color: white;
   padding: 0.25rem 0.5rem;
@@ -57,11 +57,11 @@ body {
   margin: 0;
 }
 
-.main-navigation__items a:hover,
-.main-navigation__items a:active,
-.main-navigation__items a.active,
-.main-navigation__items button:hover,
-.main-navigation__items button:active {
+.main-navigation-items a:hover,
+.main-navigation-items a:active,
+.main-navigation-items a.active,
+.main-navigation-items button:hover,
+.main-navigation-items button:active {
   background: #ffffff;
   color: #cc6600;
   border-radius: 5px;
@@ -162,7 +162,7 @@ div > h2 {
   border-color: #ff8000;
 }
 
-.bookings__list {
+.bookings-list {
   list-style: none;
   margin: 0 auto;
   padding: 0;
@@ -170,7 +170,7 @@ div > h2 {
   max-width: 90%;
 }
 
-.bookings__item {
+.bookings-item {
   margin: 0.5rem 0;
   padding: 0.5rem;
   border: 1px solid #cc6600;
@@ -200,7 +200,7 @@ div > h2 {
   color: #cc6600;
 }
 
-.events__list {
+.events-list {
   width: 100%;
   /* margin: 0 auto; */
   /* margin: 2rem auto; */
@@ -212,7 +212,7 @@ div > h2 {
   flex-wrap: wrap; 
 }
 
-.events__list-item {
+.events-list-item {
     width: 15rem;
     height: 10rem;
     padding: 2rem 1rem;
@@ -228,19 +228,19 @@ div > h2 {
     justify-content: space-between; 
 }
  
-.events__list-item h1 {
+.events-list-item h1 {
   margin: 0;
   font-size: 1.3rem;
   color: #cc6600;
 }
 
-.events__list-item h2 {
+.events-list-item h2 {
   margin: 0;
   font-size: 1rem;
   color: #7c7c7c;
 }
 
-.events__list-item p {
+.events-list-item p {
   margin: 0;
 }
 
@@ -255,24 +255,24 @@ div > h2 {
   z-index: 100;
 }
 
-.modal__header {
+.modal-header {
   padding: 1rem;
   background: #cc6600;
   color: #ffffff;
   font-size: 1.25rem;
 }
 
-.modal__header h1 {
+.modal-header h1 {
   margin: 0;
   font-size: 1.25rem;
 }
 
-.modal__content {
+.modal-content {
   padding: 1rem;
   padding-bottom: 0;
 }
 
-.modal__actions {
+.modal-actions {
   display: flex;
   justify-content: flex-end;
   padding: 1rem;

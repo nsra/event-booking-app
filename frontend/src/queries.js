@@ -3,14 +3,7 @@ import { EVENT_FIELDS } from "./fragments"
 export const EVENTS = gql`
   ${EVENT_FIELDS}
   query Events {
-    old: events{
-      ...EventFields
-      creator {
-        _id
-        email
-      }
-    }
-    new: events{
+    events{
       ...EventFields
       creator {
         _id
