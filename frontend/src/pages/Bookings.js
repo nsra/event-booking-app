@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import Spinner from '../components/Spinner';
+import Spinner from '../components/Spinner';
 import { BOOKINGS, CANCEL_BOOKING } from '../queries';
 import BookingItem from '../components/BookingItem';
 import { useQuery, useMutation, useApolloClient } from "@apollo/client";
@@ -40,7 +40,7 @@ export default function BookingsPage() {
             <>
                 <Error error={alert} />
                 {loading || cancelBookingLoading ? (
-                    <p>loading...</p>
+                    <Spinner />
                 ) : (
                     <ul className='bookings__list'>
                         {bookings.map(booking => (

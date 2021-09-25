@@ -7,6 +7,7 @@ import Backdrop from '../components/Backdrop';
 import AuthContext from '../context/auth-context';
 import { NavLink } from 'react-router-dom';
 import Error from '../components/Error';
+import Spinner from '../components/Spinner';
 
 export default function EventsPage() {
     const [events, setEvents] = useState([]);
@@ -34,7 +35,7 @@ export default function EventsPage() {
         const { loading, error, data } = useQuery(EVENTS, {
             onCompleted: () => setEvents(data.events)
         });
-        if (loading) { return <p>loading...</p> }
+        if (loading) { return <Spinner /> }
         if (error) { setAlert(error.message); return; }
 
         client.refetchQueries({
@@ -43,7 +44,7 @@ export default function EventsPage() {
 
         return (
             <ul className='events__list'>
-                {data.events.map(event => (
+                {events.map(event => (
                     <EventItem
                         key={event._id}
                         {...event}
@@ -82,7 +83,7 @@ export default function EventsPage() {
         }
     }, [data, createEventLoading, createEventError, value.userId]);// eslint-disable-line
 
-    if (createEventLoading) { return <p>loading...</p> }
+    if (createEventLoading) { return <Spinner /> }
 
     const showDetailHandler = eventId => {
         const clickedEvent = events.find(event => event._id === eventId);

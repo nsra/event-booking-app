@@ -1,13 +1,17 @@
 import { gql } from '@apollo/client'
-
+import { EVENT_FIELDS } from "./fragments"
 export const EVENTS = gql`
-  query {
-    events{
-      _id
-      title
-      description
-      price
-      date
+  ${EVENT_FIELDS}
+  query Events {
+    old: events{
+      ...EventFields
+      creator {
+        _id
+        email
+      }
+    }
+    new: events{
+      ...EventFields
       creator {
         _id
         email
@@ -17,7 +21,7 @@ export const EVENTS = gql`
 `;
 
 export const LOGIN = gql`
-  mutation login($email: String!, $password: String!) {
+  mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
       userId
@@ -46,27 +50,22 @@ export const BOOK_EVENT = gql`
 `;
 
 export const CREATE_EVENT = gql`
+  ${EVENT_FIELDS}
   mutation CreateEvent($title: String!, $description: String!, $price: Float!, $date: String!) {
     createEvent(eventInput: {title: $title, description: $description, price: $price, date: $date}) {
-      _id
-      title
-      description
-      price
-      date
+      ...EventFields
     }
   }
 `
 
 export const BOOKINGS = gql`
+  ${EVENT_FIELDS}
   query Bookings{
     bookings {
       _id
       createdAt
       event {
-        _id
-        title
-        date
-        price
+       ...EventFields
       }
       user{
         username
@@ -86,12 +85,10 @@ export const CANCEL_BOOKING = gql`
 `;
 
 export const EVENT_ADDED = gql`
+  ${EVENT_FIELDS}
   subscription {
     eventAdded {
-      _id
-      title
-      date
-      description
+      ...EventFields
     }
   }
 `

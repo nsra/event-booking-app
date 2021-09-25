@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_USER, LOGIN } from '../queries'
 import AuthContext from '../context/auth-context';
 import Error from '../components/Error';
+import Spinner from '../components/Spinner';
 
 export default function AuthPage() {
     const [isLogin, setIsLogin] = useState(true);
@@ -32,7 +33,7 @@ export default function AuthPage() {
             }
         }, [data, loading]);
 
-        if (loading) return 'يتم الآن جلب البيانات...';
+        if (loading) return <Spinner />;
 
         return (
             <form className='auth-form' onSubmit={() =>

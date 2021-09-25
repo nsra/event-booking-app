@@ -12,6 +12,7 @@ import {
 import { getMainDefinition } from "@apollo/client/utilities";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { setContext } from "apollo-link-context";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:4000/graphql',
