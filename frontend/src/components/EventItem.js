@@ -24,3 +24,4 @@ export default function EventItem({ _id, title, price, date, creator, onDetail }
         </li>
     );
 }
+
