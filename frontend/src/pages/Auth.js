@@ -54,6 +54,7 @@ export default function AuthPage() {
                     <label htmlFor='email'>البريد الالكتروني</label>
                     <input
                         id="email"
+                        type= "email"
                         value={email}
                         onChange={({ target }) => setEmail(target.value)}
                         required
@@ -70,7 +71,7 @@ export default function AuthPage() {
                     />
                 </div>
                 <div className='form-actions'>
-                    <button type='submit'>إرسال</button>
+                    <button type='submit' className="submit-btn">إرسال</button>
                     <button type='button' onClick={() => { setIsLogin(!isLogin); }}>
                         انتقل إلى {isLogin ? 'إنشاء حساب' : 'تسجيل الدخول'}
                     </button>

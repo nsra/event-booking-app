@@ -22,13 +22,19 @@ body {
   font-size: 18px;
 }
 
-.main-navigation-logo h1 {
+.main-navigation-items h1 {
   margin: 0;
   font-size: 1.5rem;
   color: #dfcefc;
+  margin-left: 1rem;
 }
 
-.main-navigation-items {
+.main-navigation-items{
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
   margin-left: 1.5rem;
 }
 
@@ -45,7 +51,8 @@ body {
 }
 
 .main-navigation-items a,
-.main-navigation-items button {
+.main-navigation-items button,
+.main-navigation button {
   text-decoration: none;
   color: white;
   padding: 0.25rem 0.5rem;
@@ -61,7 +68,9 @@ body {
 .main-navigation-items a:active,
 .main-navigation-items a.active,
 .main-navigation-items button:hover,
-.main-navigation-items button:active {
+.main-navigation-items button:active,
+.main-navigation button:hover,
+.main-navigation button:active {
   background: #ffffff;
   color: #cc6600;
   border-radius: 5px;
@@ -116,7 +125,7 @@ body {
 .form-control label,
 .form-control input,
 .form-control textarea {
-  width: 100%;
+  width: 98%;
   /* display: block; */
   font-size: 18px;
 }
@@ -136,11 +145,14 @@ body {
   border: 1px solid #cc6600;
   border-radius: 3px;
   padding: 0.25rem 1rem;
-  margin-right: 1rem;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
   color: white;
   cursor: pointer;
   outline: none;
+}
+
+.submit-btn{
+  margin-left: 1rem;
 }
 
 button > a {
@@ -256,7 +268,7 @@ div > h2 {
 }
 
 .modal-header {
-  padding: 1rem;
+  padding: .5rem;
   background: #cc6600;
   color: #ffffff;
   font-size: 1.25rem;

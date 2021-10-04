@@ -19,7 +19,9 @@ function App() {
   const logout = () => {
     setToken(null);
     setUserId(null);
-    localStorage.clear();
+    // localStorage.clear();
+    localStorage.setItem('token', "");
+    localStorage.setItem('userId', "");
   };
 
   return (

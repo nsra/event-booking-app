@@ -14,6 +14,7 @@ export default function EventsPage() {
     const [selectedEvent, setSelectedEvent] = useState(null);
     const value = useContext(AuthContext);
     const [alert, setAlert] = useState('');
+    const [modelAlert, setModelAlert] = useState('');
     const [creating, setCreating] = useState(false);
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
@@ -97,8 +98,17 @@ export default function EventsPage() {
             {creating && (
                 <Modal
                     title='إضافة حدث'
-                    onCancel={() => { setCreating(false); setAlert(""); }}
+                    onCancel={() => { setCreating(false); setAlert(""); setModelAlert("");}}
                     onConfirm={() => {
+                        if (
+                            title.trim().length === 0 ||
+                            price <= 0 ||
+                            date.trim().length === 0 ||
+                            description.trim().length === 0
+                        ) {
+                            setModelAlert("يجب ملئ جميع الحقول بالشكل الصحيح!");
+                            return;
+                        }
                         eventConfirmHandler({ variables: { title: title, price: +price, date: date, description: description } });
                         setTitle("");
                         setPrice("");
@@ -108,6 +118,7 @@ export default function EventsPage() {
                     confirmText='تأكيد'
                 >
                     <form>
+                        <Error error={modelAlert} />
                         <div className='form-control'>
                             <label htmlFor='title'>العنوان</label>
                             <input required type='text' id='title' value={title} onChange={({ target }) => setTitle(target.value)} />
@@ -122,7 +133,7 @@ export default function EventsPage() {
                         </div>
                         <div className='form-control'>
                             <label htmlFor='description'>التفاصيل</label>
-                            <textarea required id='description' rows='4' value={description} onChange={({ target }) => setDescription(target.value)} />
+                            <textarea required id='description' rows='3' value={description} onChange={({ target }) => setDescription(target.value)} />
                         </div>
                     </form>
                 </Modal>

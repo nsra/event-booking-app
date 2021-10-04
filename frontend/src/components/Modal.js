@@ -12,7 +12,7 @@ export default function Modal({
       <header className='modal-header'>{title}</header>
       <section className='modal-content'>{children}</section>
       <section className='modal-actions'>
-        <button className='btn' onClick={onConfirm}>
+        <button className='btn submit-btn' onClick={onConfirm}>
           {confirmText}
         </button>
         <button className='btn' onClick={onCancel}>
