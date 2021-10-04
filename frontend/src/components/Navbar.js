@@ -1,27 +1,21 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../context/auth-context';
 
 export default function MainNavigation() {
     const value = useContext(AuthContext);
-    useEffect(() => {
-        if (localStorage.getItem('token') && localStorage.getItem('userId')) {
-            value.token = localStorage.getItem('token');
-            value.token = localStorage.getItem('userId');
-        }
-    }, [value])
-
+   
     return (
         <header className='main-navigation'>
             <div className='main-navigation-items'>
                 <h1>أحداث حسوب</h1>
                 <ul>
-                    {value.token && (
+                    {localStorage.getItem('token') && (
                         <li>
                             <NavLink to='/bookings'>حجوزاتي</NavLink>
                         </li>
                     )}
-                    {!value.token && (
+                    {!localStorage.getItem('token') && (
                         <li>
                             <NavLink to='/auth'>تسجيل دخول</NavLink>
                         </li>
@@ -31,8 +25,9 @@ export default function MainNavigation() {
                     </li>
                 </ul>
             </div>
-            {value.token && (
-                <button onClick={value.logout}>تسجيل خروج</button>
+            {localStorage.getItem('token') && (
+                <button onClick= {value.logout} 
+                >تسجيل خروج</button>
             )}
 
         </header>

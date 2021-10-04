@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -19,9 +19,7 @@ function App() {
   const logout = () => {
     setToken(null);
     setUserId(null);
-    // localStorage.clear();
-    localStorage.setItem('token', "");
-    localStorage.setItem('userId', "");
+    localStorage.clear();
   };
 
   return (
