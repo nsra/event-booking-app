@@ -10,12 +10,12 @@ export default function MainNavigation() {
             <div className='main-navigation-items'>
                 <h1>أحداث حسوب</h1>
                 <ul>
-                    {localStorage.getItem('token') && (
+                    {value.token && (
                         <li>
                             <NavLink to='/bookings'>حجوزاتي</NavLink>
                         </li>
                     )}
-                    {!localStorage.getItem('token') && (
+                    {!value.token && (
                         <li>
                             <NavLink to='/auth'>تسجيل دخول</NavLink>
                         </li>
@@ -25,7 +25,7 @@ export default function MainNavigation() {
                     </li>
                 </ul>
             </div>
-            {localStorage.getItem('token') && (
+            {value.token && (
                 <button onClick= {value.logout} 
                 >تسجيل خروج</button>
             )}

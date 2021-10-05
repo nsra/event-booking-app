@@ -22,6 +22,13 @@ function App() {
     localStorage.clear();
   };
 
+  useEffect(() => {
+    if (localStorage.getItem('token') && localStorage.getItem('userId')) {
+     setToken(localStorage.getItem('token'));
+     setUserId(localStorage.getItem('userId'))
+    }
+  }, [token]);
+
   return (
     <BrowserRouter>
       <React.Fragment>
