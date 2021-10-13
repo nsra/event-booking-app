@@ -39,8 +39,8 @@ function App() {
           <Navbar />
           <main className="main-content">
             <Switch>
-              {token && <Redirect from='/' to='/events' exact />}
               {!token && <Route path='/auth' component={AuthPage} />}
+              <Redirect from='/' to='/events' exact />
               {!token && <Route path='/error' component={ErrorPage} />}
               {token && <Redirect from='/auth' to='/events' exact />}
               <Route path='/events' component={EventsPage} />
