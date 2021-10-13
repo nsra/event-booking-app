@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Spinner from '../components/Spinner';
 import { BOOKINGS, CANCEL_BOOKING } from '../queries';
 import BookingItem from '../components/BookingItem';
 import { useQuery, useMutation, useApolloClient } from "@apollo/client";
 import Error from '../components/Error';
-import AuthContext from '../context/auth-context';
 
 export default function BookingsPage() {
     const [bookings, setBookings] = useState([]);
@@ -13,7 +12,6 @@ export default function BookingsPage() {
     const client = useApolloClient();
 
     function BookingsList() {
-        const value = useContext(AuthContext);
         const { loading, error, data } = useQuery(BOOKINGS, {
             onError: (error) => setAlert(error.message)
         });
