@@ -68,11 +68,20 @@ export default function AuthPage() {
                         onChange={({ target }) => setPassword(target.value)}
                         type="password"
                         required
+                        minlength="6"
                     />
                 </div>
                 <div className='form-actions'>
                     <button type='submit' className="submit-btn">إرسال</button>
-                    <button type='button' onClick={() => { setIsLogin(!isLogin); }}>
+                    <button type='button' onClick={() => { 
+                        if (
+                            username.trim().length < 3 || password.trim().length < 6 
+                        ) {
+                            setAlert("يجب ملئ جميع الحقول بالشكل الصحيح!");
+                            return;
+                        }
+                        setIsLogin(!isLogin); 
+                    }}>
                         انتقل إلى {isLogin ? 'إنشاء حساب' : 'تسجيل الدخول'}
                     </button>
                 </div>
