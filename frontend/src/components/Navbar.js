@@ -26,8 +26,7 @@ export default function MainNavigation() {
                 </ul>
             </div>
             {value.token && (
-                <button onClick= {value.logout} 
-                >تسجيل خروج</button>
+                <button onClick= { () => value.logout() } >تسجيل خروج</button>
             )}
 
         </header>

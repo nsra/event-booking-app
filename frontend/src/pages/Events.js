@@ -40,7 +40,7 @@ export default function EventsPage() {
         if (error) { setAlert(error.message); return; }
 
         client.refetchQueries({
-            include: "active",
+            include: "active", 
         });
 
         return (

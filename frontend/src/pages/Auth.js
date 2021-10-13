@@ -25,20 +25,25 @@ export default function AuthPage() {
         });
         useEffect(() => {
             if (isLogin && !loading && data) {
-                value.login(data.login.token, data.login.userId);
                 const token = data.login.token;
-                localStorage.setItem("token", token);
                 const userId = data.login.userId;
-                localStorage.setItem("userId", userId);
+                value.login(token, userId);
             }
         }, [data, loading]);
 
         if (loading) return <Spinner />;
 
         return (
-            <form className='auth-form' onSubmit={() =>
-                auth({ variables: !isLogin ? { username: username, email: email, password: password } : { email: email, password: password } })
-            }>
+            <form className='auth-form' onSubmit={() => {
+                if (!isLogin && (username.trim().length < 3 || password.trim().length < 6)) {
+                    setAlert("يجب ملئ جميع الحقول بالشكل الصحيح!");
+                    return;
+                }
+                auth({
+                    variables: !isLogin ? { username: username, email: email, password: password }
+                                        : { email: email, password: password }
+                })
+            }}>
                 <Error error={alert} />
                 {!isLogin &&
                     <div className='form-control'>
@@ -54,7 +59,7 @@ export default function AuthPage() {
                     <label htmlFor='email'>البريد الالكتروني</label>
                     <input
                         id="email"
-                        type= "email"
+                        type="email"
                         value={email}
                         onChange={({ target }) => setEmail(target.value)}
                         required
@@ -68,20 +73,12 @@ export default function AuthPage() {
                         onChange={({ target }) => setPassword(target.value)}
                         type="password"
                         required
-                        minlength="6"
+                        minLength = "6"
                     />
                 </div>
                 <div className='form-actions'>
                     <button type='submit' className="submit-btn">إرسال</button>
-                    <button type='button' onClick={() => { 
-                        if (
-                            username.trim().length < 3 || password.trim().length < 6 
-                        ) {
-                            setAlert("يجب ملئ جميع الحقول بالشكل الصحيح!");
-                            return;
-                        }
-                        setIsLogin(!isLogin); 
-                    }}>
+                    <button type='button' onClick={ () => setIsLogin(!isLogin)}>
                         انتقل إلى {isLogin ? 'إنشاء حساب' : 'تسجيل الدخول'}
                     </button>
                 </div>
