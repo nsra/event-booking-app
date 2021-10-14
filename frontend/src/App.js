@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import AuthPage from './pages/Auth';
-import EventsPage from './pages/Events';
-import BookingsPage from './pages/Bookings';
-import AuthContext from './context/auth-context';
+import React, { useState, useEffect } from 'react' 
+import './App.css' 
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom' 
+import Navbar from './components/Navbar' 
+import AuthPage from './pages/Auth' 
+import EventsPage from './pages/Events' 
+import BookingsPage from './pages/Bookings' 
+import AuthContext from './context/auth-context' 
 
 function App() {
-  let [token, setToken] = useState(null);
-  let [userId, setUserId] = useState(null);
+  let [token, setToken] = useState(null) 
+  let [userId, setUserId] = useState(null) 
 
   useEffect(() => {
     if (localStorage.getItem('token') && localStorage.getItem('userId')) {
-      setToken(localStorage.getItem('token'));
-      setUserId(localStorage.getItem('userId'));
+      setToken(localStorage.getItem('token')) 
+      setUserId(localStorage.getItem('userId')) 
     }
-  }, [token]);
+  }, [token]) 
 
   const login = (userToken, loginUserId) => {
-    setToken(userToken);
-    setUserId(loginUserId);
-    localStorage.setItem("token", userToken);
-    localStorage.setItem("userId", loginUserId);
-  };
+    setToken(userToken) 
+    setUserId(loginUserId) 
+    localStorage.setItem("token", userToken) 
+    localStorage.setItem("userId", loginUserId) 
+  } 
 
   const logout = () => {
-    setToken(null);
-    setUserId(null);
-    localStorage.clear();
-  };
+    setToken(null) 
+    setUserId(null) 
+    localStorage.clear() 
+  } 
 
   return (
     <BrowserRouter>
@@ -49,8 +49,8 @@ function App() {
         </AuthContext.Provider>
       </React.Fragment>
     </BrowserRouter>
-  );
+  ) 
 }
 
-export default App;
+export default App 
 

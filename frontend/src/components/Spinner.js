@@ -1,5 +1,6 @@
-import React from "react";
-import Loader from "react-loader-spinner";
+import React from "react" 
+import Loader from "react-loader-spinner" 
+
 export default class Spinner extends React.Component {
     render() {
         return (
@@ -12,6 +13,6 @@ export default class Spinner extends React.Component {
                     timeout={3000} //3 secs
                 />
             </div>
-        );
+        ) 
     }
 }

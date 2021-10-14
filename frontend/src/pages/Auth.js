@@ -1,43 +1,43 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useMutation } from '@apollo/client';
+import React, { useState, useContext, useEffect } from 'react' 
+import { useMutation } from '@apollo/client' 
 import { CREATE_USER, LOGIN } from '../queries'
-import AuthContext from '../context/auth-context';
-import Error from '../components/Error';
-import Spinner from '../components/Spinner';
+import AuthContext from '../context/auth-context' 
+import Error from '../components/Error' 
+import Spinner from '../components/Spinner' 
 
 export default function AuthPage() {
-    const [isLogin, setIsLogin] = useState(true);
-    const value = useContext(AuthContext);
-    const [alert, setAlert] = useState("");
+    const [isLogin, setIsLogin] = useState(true) 
+    const value = useContext(AuthContext) 
+    const [alert, setAlert] = useState("") 
 
     function Auth() {
-        const [username, setUsername] = useState("");
-        const [email, setEmail] = useState("");
-        const [password, setPassword] = useState("");
+        const [username, setUsername] = useState("") 
+        const [email, setEmail] = useState("") 
+        const [password, setPassword] = useState("") 
         const [auth, { loading, data }] = useMutation(isLogin ? LOGIN : CREATE_USER, {
             onError: (error) => setAlert(error.message),
             onCompleted: () => {
                 if (!isLogin) {
-                    setAlert("تم إنشاء الحساب بنجاح");
+                    setAlert("تم إنشاء الحساب بنجاح") 
                     setIsLogin(true)
                 }
             }
-        });
+        }) 
         useEffect(() => {
             if (isLogin && !loading && data) {
-                const token = data.login.token;
-                const userId = data.login.userId;
-                value.login(token, userId);
+                const token = data.login.token 
+                const userId = data.login.userId 
+                value.login(token, userId) 
             }
-        }, [data, loading]);
+        }, [data, loading]) 
 
-        if (loading) return <Spinner />;
+        if (loading) return <Spinner /> 
 
         return (
             <form className='auth-form' onSubmit={() => {
                 if (!isLogin && (username.trim().length < 3 || password.trim().length < 6)) {
-                    setAlert("يجب ملئ جميع الحقول بالشكل الصحيح!");
-                    return;
+                    setAlert("يجب ملئ جميع الحقول بالشكل الصحيح!") 
+                    return 
                 }
                 auth({
                     variables: !isLogin ? { username: username, email: email, password: password }
@@ -83,7 +83,7 @@ export default function AuthPage() {
                     </button>
                 </div>
             </form>
-        );
+        ) 
     }
 
     return (

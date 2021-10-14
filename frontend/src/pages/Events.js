@@ -1,47 +1,50 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client';
+import React, { useState, useContext, useEffect } from 'react' 
+import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client' 
 import { EVENTS, BOOK_EVENT, CREATE_EVENT, EVENT_ADDED } from '../queries'
-import EventItem from '../components/EventItem';
-import Modal from '../components/Modal';
-import Backdrop from '../components/Backdrop';
-import AuthContext from '../context/auth-context';
-import { NavLink } from 'react-router-dom';
-import Error from '../components/Error';
-import Spinner from '../components/Spinner';
+import EventItem from '../components/EventItem' 
+import Modal from '../components/Modal' 
+import Backdrop from '../components/Backdrop' 
+import AuthContext from '../context/auth-context' 
+import { NavLink } from 'react-router-dom' 
+import Error from '../components/Error' 
+import Spinner from '../components/Spinner' 
 
 export default function EventsPage() {
-    const [events, setEvents] = useState([]);
-    const [selectedEvent, setSelectedEvent] = useState(null);
-    const value = useContext(AuthContext);
-    const [alert, setAlert] = useState('');
-    const [modelAlert, setModelAlert] = useState('');
-    const [creating, setCreating] = useState(false);
-    const [title, setTitle] = useState("");
-    const [price, setPrice] = useState("");
-    const [date, setDate] = useState("");
-    const [description, setDescription] = useState("");
-    const client = useApolloClient();
+    const [events, setEvents] = useState([]) 
+    const [selectedEvent, setSelectedEvent] = useState(null) 
+    const value = useContext(AuthContext) 
+    const [alert, setAlert] = useState('') 
+    const [modelAlert, setModelAlert] = useState('') 
+    const [creating, setCreating] = useState(false) 
+    const [title, setTitle] = useState("") 
+    const [price, setPrice] = useState("") 
+    const [date, setDate] = useState("") 
+    const [description, setDescription] = useState("") 
+    const client = useApolloClient() 
 
     useSubscription(EVENT_ADDED, {
         onSubscriptionData: async ({ subscriptionData }) => {
             if (subscriptionData.data) {
-                const addedEvent = subscriptionData.data.eventAdded;
-                setAlert(`حدث جديد بعنوان: ${addedEvent.title}، أُضيف للتو`);
+                const addedEvent = subscriptionData.data.eventAdded 
+                setAlert(`حدث جديد بعنوان: ${addedEvent.title}، أُضيف للتو`) 
             }
-            // if (subscriptionData.errors) setAlert("خطأ في جلب الأحداث الجديدة");
+            if (subscriptionData.errors) setAlert("خطأ في جلب الأحداث الجديدة") 
         }
     })
 
     function EventList() {
         const { loading, error, data } = useQuery(EVENTS, {
             onCompleted: () => setEvents(data.events)
-        });
+        }) 
         if (loading) { return <Spinner /> }
-        if (error) { setAlert(error.message); return; }
+        if (error) { 
+            setAlert(error.message)
+            return;  
+        }
 
         client.refetchQueries({
-            include: "active", 
-        });
+            include: "active",
+        }) 
 
         return (
             <ul className='events-list'>
@@ -54,42 +57,42 @@ export default function EventsPage() {
                     />
                 ))}
             </ul>
-        );
-    };
+        ) 
+    } 
 
     const [bookEventHandler] = useMutation(BOOK_EVENT, {
         onError: (error) => {
-            setSelectedEvent(null);
+            setSelectedEvent(null) 
             setAlert(error.message)
         },
         onCompleted: () => {
-            setSelectedEvent(null);
-            setAlert("تم حجز الحدث بنجاح");
+            setSelectedEvent(null) 
+            setAlert("تم حجز الحدث بنجاح") 
         }
-    });
+    }) 
 
     const [eventConfirmHandler, { createEventLoading, createEventError, data }] = useMutation(CREATE_EVENT, {
         onCompleted: () => {
-            setCreating(false);
-            setAlert("تم إضافة الحدث بنجاح");
+            setCreating(false) 
+            setAlert("تم إضافة الحدث بنجاح") 
         },
-    });
+    }) 
 
     useEffect(() => {
         if (!createEventLoading && !createEventError && data) {
             setEvents([
                 ...events,
                 { ...data.createEvent, creator: { _id: value.userId } },
-            ]);
+            ]) 
         }
-    }, [data, createEventLoading, createEventError, value.userId]);// eslint-disable-line
+    }, [data, createEventLoading, createEventError, value.userId]) // eslint-disable-line
 
     if (createEventLoading) { return <Spinner /> }
 
     const showDetailHandler = eventId => {
-        const clickedEvent = events.find(event => event._id === eventId);
-        setSelectedEvent(clickedEvent);
-    };
+        const clickedEvent = events.find(event => event._id === eventId) 
+        setSelectedEvent(clickedEvent) 
+    } 
 
     return (
         <React.Fragment>
@@ -98,7 +101,11 @@ export default function EventsPage() {
             {creating && (
                 <Modal
                     title='إضافة حدث'
-                    onCancel={() => { setCreating(false); setAlert(""); setModelAlert("");}}
+                    onCancel={() => {
+                        setCreating(false) 
+                        setAlert("") 
+                        setModelAlert("") 
+                    }}
                     onConfirm={() => {
                         if (
                             title.trim().length === 0 ||
@@ -106,14 +113,16 @@ export default function EventsPage() {
                             date.trim().length === 0 ||
                             description.trim().length === 0
                         ) {
-                            setModelAlert("يجب ملئ جميع الحقول بالشكل الصحيح!");
-                            return;
+                            setModelAlert("يجب ملئ جميع الحقول بالشكل الصحيح!") 
+                            return 
                         }
-                        eventConfirmHandler({ variables: { title: title, price: +price, date: date, description: description } });
-                        setTitle("");
-                        setPrice("");
-                        setDate("");
-                        setDescription("");
+                        eventConfirmHandler(
+                            { variables: { title: title, price: +price, date: date, description: description } }
+                        ) 
+                        setTitle("") 
+                        setPrice("") 
+                        setDate("") 
+                        setDescription("") 
                     }}
                     confirmText='تأكيد'
                 >
@@ -121,19 +130,42 @@ export default function EventsPage() {
                         <Error error={modelAlert} />
                         <div className='form-control'>
                             <label htmlFor='title'>العنوان</label>
-                            <input required type='text' id='title' value={title} onChange={({ target }) => setTitle(target.value)} />
+                            <input
+                                required
+                                type='text'
+                                id='title'
+                                value={title}
+                                onChange={({ target }) => setTitle(target.value)}
+                            />
                         </div>
                         <div className='form-control'>
                             <label htmlFor='price'>السعر</label>
-                            <input required type='number' id='price' value={price} onChange={({ target }) => setPrice(target.value)} />
+                            <input
+                                required
+                                type='number'
+                                id='price'
+                                value={price}
+                                onChange={({ target }) => setPrice(target.value)}
+                            />
                         </div>
                         <div className='form-control'>
                             <label htmlFor='date'>التاريخ</label>
-                            <input required type='datetime-local' id='date' value={date} onChange={({ target }) => setDate(target.value)} />
+                            <input
+                                required
+                                type='datetime-local'
+                                id='date'
+                                value={date}
+                                onChange={({ target }) => setDate(target.value)}
+                            />
                         </div>
                         <div className='form-control'>
                             <label htmlFor='description'>التفاصيل</label>
-                            <textarea required id='description' rows='3' value={description} onChange={({ target }) => setDescription(target.value)} />
+                            <textarea
+                                required id='description'
+                                rows='3'
+                                value={description}
+                                onChange={({ target }) => setDescription(target.value)}
+                            />
                         </div>
                     </form>
                 </Modal>
@@ -142,12 +174,12 @@ export default function EventsPage() {
                 <Modal
                     title='حجز الحدث'
                     onCancel={() => {
-                        setCreating(false);
-                        setSelectedEvent(false);
-                        setAlert("");
+                        setCreating(false) 
+                        setSelectedEvent(false) 
+                        setAlert("") 
                     }}
                     onConfirm={() => {
-                        bookEventHandler({ variables: { eventId: selectedEvent._id } });
+                        bookEventHandler({ variables: { eventId: selectedEvent._id } }) 
                     }}
                     confirmText={value.token ? 'احجز' : <NavLink to='/auth'>سجل دخول لتحجز</NavLink>}
                 >
@@ -172,5 +204,5 @@ export default function EventsPage() {
                 <EventList />
             </div>
         </React.Fragment>
-    );
+    ) 
 }

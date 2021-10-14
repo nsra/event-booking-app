@@ -126,7 +126,6 @@ body {
 .form-control input,
 .form-control textarea {
   width: 98%;
-  /* display: block; */
   font-size: 18px;
 }
 
@@ -214,8 +213,6 @@ div > h2 {
 
 .events-list {
   width: 100%;
-  /* margin: 0 auto; */
-  /* margin: 2rem auto; */
   align-items: center;
   list-style: none;
   padding: 0;

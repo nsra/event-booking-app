@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
-import AuthContext from '../context/auth-context';
+import React, { useContext } from 'react' 
+import { NavLink } from 'react-router-dom' 
+import AuthContext from '../context/auth-context' 
 
 export default function MainNavigation() {
-    const value = useContext(AuthContext);
+    const value = useContext(AuthContext) 
    
     return (
         <header className='main-navigation'>
@@ -30,5 +30,5 @@ export default function MainNavigation() {
             )}
 
         </header>
-    );
+    ) 
 }

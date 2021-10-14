@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
-import AuthContext from '../context/auth-context';
+import React, { useContext } from 'react' 
+import AuthContext from '../context/auth-context' 
 
 export default function EventItem({ _id, title, price, date, creator, onDetail }) {
-    const value = useContext(AuthContext);
+    const value = useContext(AuthContext) 
 
     return (
         <li className='events-list-item'>
@@ -22,6 +22,6 @@ export default function EventItem({ _id, title, price, date, creator, onDetail }
                 )}
             </div>
         </li>
-    );
+    ) 
 }
 

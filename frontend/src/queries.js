@@ -11,7 +11,7 @@ export const EVENTS = gql`
       }
     }
   }
-`;
+` 
 
 export const LOGIN = gql`
   mutation Login($email: String!, $password: String!) {
@@ -20,7 +20,7 @@ export const LOGIN = gql`
       userId
     }
   }
-`;
+` 
 
 export const CREATE_USER = gql`
   mutation CreateUser($username: String!, $email: String!, $password: String!) {
@@ -30,7 +30,7 @@ export const CREATE_USER = gql`
       email
     }
   }
-`;
+` 
 
 export const BOOK_EVENT = gql`
   mutation BookEvent($eventId: ID!) {
@@ -40,7 +40,7 @@ export const BOOK_EVENT = gql`
       updatedAt
     }
   }
-`;
+` 
 
 export const CREATE_EVENT = gql`
   ${EVENT_FIELDS}
@@ -49,7 +49,7 @@ export const CREATE_EVENT = gql`
       ...EventFields
     }
   }
-`
+` 
 
 export const BOOKINGS = gql`
   ${EVENT_FIELDS}
@@ -66,7 +66,7 @@ export const BOOKINGS = gql`
       }
     }
   }
-`
+` 
 
 export const CANCEL_BOOKING = gql`
   mutation CancelBooking($bookingId: ID!){
@@ -75,7 +75,7 @@ export const CANCEL_BOOKING = gql`
       title
     }
   }
-`;
+` 
 
 export const EVENT_ADDED = gql`
   ${EVENT_FIELDS}

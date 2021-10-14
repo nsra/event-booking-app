@@ -1,5 +1,5 @@
-import React from 'react';
+import React from 'react'
 
 export default function Backdrop() {
-  return <div className='backdrop' />;
+  return <div className='backdrop' />
 }

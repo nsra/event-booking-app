@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export default function BookingItem({ _id, event, createdAt, onCancelBooking }) {
   return (
