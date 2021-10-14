@@ -5,7 +5,6 @@ import Navbar from './components/Navbar';
 import AuthPage from './pages/Auth';
 import EventsPage from './pages/Events';
 import BookingsPage from './pages/Bookings';
-import ErrorPage from './pages/Error'
 import AuthContext from './context/auth-context';
 
 function App() {
@@ -40,12 +39,11 @@ function App() {
           <main className="main-content">
             <Switch>
               {!token && <Route path='/auth' component={AuthPage} />}
-              <Redirect from='/' to='/events' exact />
-              {!token && <Route path='/error' component={ErrorPage} />}
-              {token && <Redirect from='/auth' to='/events' exact />}
-              <Route path='/events' component={EventsPage} />
               {token && <Route path='/bookings' component={BookingsPage} />}
-              {!localStorage.getItem('token') && <Redirect from='/bookings' to='/auth' exact />}
+              <Redirect from='/' to='/events' exact />
+              {token && <Redirect from='/auth' to='/events' />}
+              <Route path='/events' component={EventsPage} />
+              {!localStorage.getItem('token') && <Redirect from='/bookings' to='/auth' />}
             </Switch>
           </main>
         </AuthContext.Provider>
