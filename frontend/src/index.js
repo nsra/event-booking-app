@@ -1,6 +1,7 @@
 import React from 'react' 
 import ReactDOM from 'react-dom' 
 import './index.css' 
+import "bootstrap/dist/js/bootstrap.min.js"
 import App from './App' 
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider, split } from "@apollo/client" 
 import { getMainDefinition } from "@apollo/client/utilities" 
