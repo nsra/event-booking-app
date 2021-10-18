@@ -1,33 +1,29 @@
 import React, { useState, useContext, useEffect } from 'react' 
+import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client' 
-import { CREATE_USER, LOGIN } from '../queries'
+import { LOGIN } from '../queries'
 import AuthContext from '../context/auth-context' 
 import Error from '../components/Error' 
 import Spinner from '../components/Spinner' 
 
-export default function AuthPage() {
-    const [isLogin, setIsLogin] = useState(true) 
+export default function LoginPage() {
     const value = useContext(AuthContext) 
     const [alert, setAlert] = useState("") 
 
-    function Auth() {
-        const [username, setUsername] = useState("") 
+    function Login() {
         const [email, setEmail] = useState("") 
         const [password, setPassword] = useState("") 
-        const [auth, { loading, data }] = useMutation(isLogin ? LOGIN : CREATE_USER, {
-            onError: (error) => setAlert(error.message),
-            onCompleted: () => {
-                if (!isLogin) {
-                    setAlert("تم إنشاء الحساب بنجاح") 
-                    setIsLogin(true)
-                }
-            }
+        const history = useHistory();
+        const [login, { loading, data }] = useMutation(LOGIN, {
+            onError: (error) => setAlert(error.message)
         }) 
         useEffect(() => {
-            if (isLogin && !loading && data) {
+            if (!loading && data) {
                 const token = data.login.token 
                 const userId = data.login.userId 
-                value.login(token, userId) 
+                const username = data.login.username
+                value.login(token, userId, username) 
+                console.log(data.login)
             }
         }, [data, loading]) 
 
@@ -35,26 +31,11 @@ export default function AuthPage() {
 
         return (
             <form className='auth-form' onSubmit={() => {
-                if (!isLogin && (username.trim().length < 3 || password.trim().length < 6)) {
-                    setAlert("يجب ملئ جميع الحقول بالشكل الصحيح!") 
-                    return 
-                }
-                auth({
-                    variables: !isLogin ? { username: username, email: email, password: password }
-                                        : { email: email, password: password }
+                login({
+                    variables: { email: email, password: password }
                 })
             }}>
                 <Error error={alert} />
-                {!isLogin &&
-                    <div className='form-control'>
-                        <label htmlFor='username'>اسم المستخدم</label>
-                        <input
-                            id="username"
-                            value={username}
-                            onChange={({ target }) => setUsername(target.value)}
-                            required
-                        />
-                    </div>}
                 <div className='form-control'>
                     <label htmlFor='email'>البريد الالكتروني</label>
                     <input
@@ -78,8 +59,8 @@ export default function AuthPage() {
                 </div>
                 <div className='form-actions'>
                     <button type='submit' className="submit-btn">إرسال</button>
-                    <button type='button' onClick={ () => setIsLogin(!isLogin)}>
-                        انتقل إلى {isLogin ? 'إنشاء حساب' : 'تسجيل الدخول'}
+                    <button onClick={() => history.push('/signUp')}>
+                        انتقل إلى إنشاء حساب
                     </button>
                 </div>
             </form>
@@ -87,7 +68,7 @@ export default function AuthPage() {
     }
 
     return (
-        <Auth />
+        <Login />
     )
 }
 

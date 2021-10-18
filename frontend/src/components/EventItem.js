@@ -1,7 +1,8 @@
 import React, { useContext } from 'react' 
 import AuthContext from '../context/auth-context' 
+import ReactTooltip from 'react-tooltip';
 
-export default function EventItem({ _id, title, price, date, creator, onDetail }) {
+export default function EventItem({ _id, title, price, date, description, creator, onDetail }) {
     const value = useContext(AuthContext) 
 
     return (
@@ -14,9 +15,12 @@ export default function EventItem({ _id, title, price, date, creator, onDetail }
             </div>
             <div>
                 {value.userId === creator._id ? (
-                    <p>أنت صاحب هذا الحدث</p>
+                    <>
+                    <p data-tip={description}>أنت صاحب هذا الحدث</p>
+                    <ReactTooltip place="bottom" />
+                    </>
                 ) : (
-                    <button className='btn' onClick={() => onDetail(_id)}>
+                    <button  className='btn' onClick={() => onDetail(_id)}>
                         عرض التفاصيل
                     </button>
                 )}

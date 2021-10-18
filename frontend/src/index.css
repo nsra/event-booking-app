@@ -33,7 +33,6 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
-  align-items: center;
 }
 
 .main-navigation-items li {
@@ -45,7 +44,6 @@ body {
 .main-navigation button {
   text-decoration: none;
   color: white;
-  padding: 0.25rem 0.5rem;
   border: none;
   font: inherit;
   background: transparent;
@@ -56,7 +54,11 @@ body {
 
 .main-navigation-items a:hover,
 .main-navigation-items a:active,
-.main-navigation-items a.active,
+.main-navigation-items a.active{
+  color: #dfcefc;
+  font-size: 1.3rem;
+}
+
 .main-navigation-items button:hover,
 .main-navigation-items button:active,
 .main-navigation button:hover,
@@ -212,19 +214,20 @@ div > h2 {
 }
 
 .events-list-item {
-    width: 15rem;
-    height: 10rem;
-    padding: 2rem 1rem;
-    padding-top: 1rem;
-    border-radius: 5px;
-    border: 1px solid #cc6600;
-    text-align: center;
-    color: #111111;
-    box-shadow: 0px 3px 4px -7px rgba(0, 0, 0, 0.5);
-    margin: 0 2rem 2rem 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; 
+  width: 15rem;
+  height: 10rem;
+  padding: 2rem 1rem;
+  padding-top: 1rem;
+  border-radius: 5px;
+  border: 1px solid #cc6600;
+  text-align: center;
+  color: #111111;
+  box-shadow: 0px 3px 4px -7px rgba(0, 0, 0, 0.5);
+  margin: 0 2rem 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  overflow: auto;
 }
  
 .events-list-item h1 {

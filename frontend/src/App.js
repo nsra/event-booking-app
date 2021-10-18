@@ -2,48 +2,55 @@ import React, { useState, useEffect } from 'react'
 import './App.css' 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom' 
 import Navbar from './components/Navbar' 
-import AuthPage from './pages/Auth' 
+import LoginPage from './pages/Login' 
 import EventsPage from './pages/Events' 
 import BookingsPage from './pages/Bookings' 
+import SignUpPage from './pages/SignUp' 
 import AuthContext from './context/auth-context' 
 
 function App() {
   let [token, setToken] = useState(null) 
   let [userId, setUserId] = useState(null) 
-
+  let [username, setUsername] = useState(null) 
+  let user_name= "";
   useEffect(() => {
     if (localStorage.getItem('token') && localStorage.getItem('userId')) {
       setToken(localStorage.getItem('token')) 
       setUserId(localStorage.getItem('userId')) 
+      setUsername(localStorage.getItem('username'))
     }
-  }, [token]) 
+  }, [token, user_name, username]) 
 
-  const login = (userToken, loginUserId) => {
+  const login = (userToken, loginUserId, username) => {
     setToken(userToken) 
     setUserId(loginUserId) 
-    localStorage.setItem("token", userToken) 
-    localStorage.setItem("userId", loginUserId) 
+    setUsername(username)
+    if(userToken) localStorage.setItem(["token"], userToken) 
+    if(loginUserId) localStorage.setItem("userId", loginUserId) 
+    if(username) localStorage.setItem("username", username) 
   } 
 
   const logout = () => {
     setToken(null) 
     setUserId(null) 
+    setUsername(null)
     localStorage.clear() 
   } 
 
   return (
     <BrowserRouter>
       <React.Fragment>
-        <AuthContext.Provider value={{ token, userId, login, logout }}>
+        <AuthContext.Provider value={{ token, userId, username, login, logout }}>
           <Navbar />
           <main className="main-content">
             <Switch>
-              {!token && <Route path='/auth' component={AuthPage} />}
+              {!token && <Route path='/login' component={LoginPage} />}
               {token && <Route path='/bookings' component={BookingsPage} />}
               <Redirect from='/' to='/events' exact />
-              {token && <Redirect from='/auth' to='/events' />}
+              {token && <Redirect from='/login' to='/events' />}
               <Route path='/events' component={EventsPage} />
-              {!localStorage.getItem('token') && <Redirect from='/bookings' to='/auth' />}
+              <Route path='/signUp' component={SignUpPage} />
+              {!localStorage.getItem('token') && <Redirect from='/bookings' to='/login' />}
             </Switch>
           </main>
         </AuthContext.Provider>

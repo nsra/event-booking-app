@@ -14,7 +14,7 @@ export default function MainNavigation() {
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse main-navigation-items" id="navbarContent">
                     <ul className="navbar-nav me-auto">
@@ -25,7 +25,7 @@ export default function MainNavigation() {
                         )}
                         {!value.token && (
                             <li className="nav-item">
-                                <NavLink to='/auth'>تسجيل دخول</NavLink>
+                                <NavLink to='/login'>تسجيل دخول</NavLink>
                             </li>
                         )}
                         <li className="nav-item">
@@ -33,7 +33,12 @@ export default function MainNavigation() {
                         </li>
                     </ul>
                     {value.token && (
-                        <button onClick={() => value.logout()} >تسجيل خروج</button>
+                        <ul className="navbar-nav">
+                            <button onClick={() => value.logout()} >تسجيل خروج</button>
+                            <li className="nav-item">
+                                <NavLink to='#'>{value.username}</NavLink>
+                            </li>
+                        </ul>
                     )}
                 </div>
             </div>

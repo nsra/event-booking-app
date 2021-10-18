@@ -16,7 +16,7 @@ export default function Modal({
           {confirmText}
         </button>
         <button className='btn' onClick={onCancel}>
-          إلغاء
+          إغلاق
         </button>
       </section>
     </div>

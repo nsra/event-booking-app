@@ -64,10 +64,12 @@ export default function EventsPage() {
         onError: (error) => {
             setSelectedEvent(null) 
             setAlert(error.message)
+            window.scrollTo(0, 0)
         },
         onCompleted: () => {
             setSelectedEvent(null) 
             setAlert("تم حجز الحدث بنجاح") 
+            window.scrollTo(0, 0)
         }
     }) 
 
@@ -75,6 +77,7 @@ export default function EventsPage() {
         onCompleted: () => {
             setCreating(false) 
             setAlert("تم إضافة الحدث بنجاح") 
+            window.scrollTo(0, 0)
         },
     }) 
 
