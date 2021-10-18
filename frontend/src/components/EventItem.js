@@ -1,9 +1,8 @@
-import React, { useContext } from 'react' 
-import AuthContext from '../context/auth-context' 
-import ReactTooltip from 'react-tooltip';
+import React, { useContext } from 'react'
+import AuthContext from '../context/auth-context'
 
 export default function EventItem({ _id, title, price, date, description, creator, onDetail }) {
-    const value = useContext(AuthContext) 
+    const value = useContext(AuthContext)
 
     return (
         <li className='events-list-item'>
@@ -14,18 +13,11 @@ export default function EventItem({ _id, title, price, date, description, creato
                 </h2>
             </div>
             <div>
-                {value.userId === creator._id ? (
-                    <>
-                    <p data-tip={description}>أنت صاحب هذا الحدث</p>
-                    <ReactTooltip place="bottom" />
-                    </>
-                ) : (
-                    <button  className='btn' onClick={() => onDetail(_id)}>
-                        عرض التفاصيل
-                    </button>
-                )}
+                <button className='btn' onClick={() => onDetail(_id)}>
+                    {value.userId === creator._id ? "أنت صاحب هذا الحدث" : "عرض التفاصيل"}
+                </button>
             </div>
         </li>
-    ) 
+    )
 }
 

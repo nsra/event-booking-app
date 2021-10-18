@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client'
-import { CREATE_USER } from '../queries'
+import { CREATE_USER, LOGIN} from '../queries'
 import Error from '../components/Error'
 import Spinner from '../components/Spinner'
+import AuthContext from '../context/auth-context' 
 
 export default function SignUpPage() {
     const [alert, setAlert] = useState("")
+    const value = useContext(AuthContext) 
 
     function SignUp() {
         const [username, setUsername] = useState("")
@@ -19,8 +21,19 @@ export default function SignUpPage() {
                 setAlert("تم إنشاء الحساب بنجاح")
             }
         })
+        const [login, {data}] = useMutation(LOGIN)
 
-        if (loading) return <Spinner />
+        useEffect(() => {
+            if (!loading && data) {
+                const token = data.login.token 
+                const userId = data.login.userId 
+                const username = data.login.username
+                value.login(token, userId, username) 
+                console.log(data.login)
+            }
+        }, [data, loading]) 
+
+        if (loading) return <Spinner /> 
 
         return (
             <form className='auth-form' onSubmit={() => {
@@ -30,6 +43,9 @@ export default function SignUpPage() {
                 }
                 signup({
                     variables: { username: username, email: email, password: password }
+                })
+                login({
+                    variables: { email: email, password: password }
                 })
             }}>
                 <Error error={alert} />
@@ -65,9 +81,6 @@ export default function SignUpPage() {
                 </div>
                 <div className='form-actions'>
                     <button type='submit' className="submit-btn">إرسال</button>
-                    <button onClick={() => history.push('/login')}>
-                        انتقل إلى تسجيل الدخول 
-                    </button>
                 </div>
             </form>
         )

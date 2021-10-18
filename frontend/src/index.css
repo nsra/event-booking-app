@@ -142,6 +142,13 @@ body {
   outline: none;
 }
 
+button[disabled], 
+button[disabled]:hover{
+  background-color: #999999;
+  border-color: #999999;
+  cursor: not-allowed;
+}
+
 .submit-btn{
   margin-left: 1rem;
 }

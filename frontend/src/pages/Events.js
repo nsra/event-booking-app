@@ -186,6 +186,7 @@ export default function EventsPage() {
                         bookEventHandler({ variables: { eventId: selectedEvent._id } }) 
                     }}
                     confirmText={value.token ? 'احجز' : <NavLink to='/auth'>سجل دخول لتحجز</NavLink>}
+                    isDisabled = {selectedEvent.creator._id === value.userId ? true : false }
                 >
                     <h1>{selectedEvent.title}</h1>
                     <h2>
