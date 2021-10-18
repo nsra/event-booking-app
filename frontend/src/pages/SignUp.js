@@ -13,7 +13,7 @@ export default function SignUpPage() {
         const [email, setEmail] = useState("")
         const [password, setPassword] = useState("")
         const history = useHistory();
-        const [auth, { loading }] = useMutation(CREATE_USER, {
+        const [signup, { loading }] = useMutation(CREATE_USER, {
             onError: (error) => setAlert(error.message),
             onCompleted: () => {
                 setAlert("تم إنشاء الحساب بنجاح")
@@ -28,7 +28,7 @@ export default function SignUpPage() {
                     setAlert("يجب ملئ جميع الحقول بالشكل الصحيح!")
                     return
                 }
-                auth({
+                signup({
                     variables: { username: username, email: email, password: password }
                 })
             }}>
