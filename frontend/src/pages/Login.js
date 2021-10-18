@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react' 
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useMutation } from '@apollo/client' 
 import { LOGIN } from '../queries'
 import AuthContext from '../context/auth-context' 
 import Error from '../components/Error' 
 import Spinner from '../components/Spinner' 
-
 export default function LoginPage() {
     const value = useContext(AuthContext) 
     const [alert, setAlert] = useState("") 
@@ -14,6 +13,7 @@ export default function LoginPage() {
         const [email, setEmail] = useState("") 
         const [password, setPassword] = useState("") 
         const history = useHistory();
+        const { state } = useLocation();
         const [login, { loading, data }] = useMutation(LOGIN, {
             onError: (error) => setAlert(error.message)
         }) 
