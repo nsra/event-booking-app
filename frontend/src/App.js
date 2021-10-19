@@ -9,7 +9,6 @@ import SignUpPage from './pages/SignUp'
 import AuthContext from './context/auth-context'
 import PrivateRoute from './components/PrivateRoute' 
 
-
 function App() {
   let [token, setToken] = useState(null) 
   let [userId, setUserId] = useState(null) 
@@ -50,6 +49,7 @@ function App() {
               {token && <Route path='/bookings' component={BookingsPage} />}
               <Redirect from='/' to='/events' exact />
               {token && <Redirect from='/login' to='/events' />}
+              {token && <Redirect from='/signup' to='/events' />}
               <Route path='/events' component={EventsPage} />
               <Route path='/signup' component={SignUpPage} />
               <PrivateRoute path='/bookings' component={BookingsPage} />
