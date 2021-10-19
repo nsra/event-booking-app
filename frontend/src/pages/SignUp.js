@@ -1,13 +1,13 @@
-import React, { useState, useContext,useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
-import { CREATE_USER} from '../queries'
+import { CREATE_USER } from '../queries'
 import Error from '../components/Error'
 import Spinner from '../components/Spinner'
-import AuthContext from '../context/auth-context' 
+import AuthContext from '../context/auth-context'
 
 export default function SignUpPage() {
     const [alert, setAlert] = useState("")
-    const value = useContext(AuthContext) 
+    const value = useContext(AuthContext)
 
     function SignUp() {
         const [username, setUsername] = useState("")
@@ -22,15 +22,14 @@ export default function SignUpPage() {
 
         useEffect(() => {
             if (!loading && data) {
-                const token = data.createUser.token 
-                const userId = data.createUser.userId 
+                const token = data.createUser.token
+                const userId = data.createUser.userId
                 const username = data.createUser.username
-                value.login(token, userId, username) 
-                console.log(data.createUser)
+                value.login(token, userId, username)
             }
-        }, [data, loading]) 
+        }, [data, loading])
 
-        if (loading) return <Spinner /> 
+        if (loading) return <Spinner />
 
         return (
             <form className='auth-form' onSubmit={(event) => {
@@ -44,18 +43,20 @@ export default function SignUpPage() {
                 })
             }}>
                 <Error error={alert} />
-                <div className='form-control'>
-                    <label htmlFor='username'>اسم المستخدم</label>
+                <div className="mb-3 mt-2">
+                    <label className="form-label" htmlFor='username'>اسم المستخدم</label>
                     <input
+                        className="form-control"
                         id="username"
                         value={username}
                         onChange={({ target }) => setUsername(target.value)}
                         required
                     />
                 </div>
-                <div className='form-control'>
-                    <label htmlFor='email'>البريد الالكتروني</label>
+                <div className="mb-3">
+                    <label className="form-label" htmlFor='email'>البريد الالكتروني</label>
                     <input
+                        className="form-control"
                         id="email"
                         type="email"
                         value={email}
@@ -63,9 +64,10 @@ export default function SignUpPage() {
                         required
                     />
                 </div>
-                <div className='form-control'>
-                    <label htmlFor='password'>كلمة المرور</label>
+                <div className="mb-3">
+                    <label className="form-label" htmlFor='password'>كلمة المرور</label>
                     <input
+                        className="form-control"
                         id="password"
                         value={password}
                         onChange={({ target }) => setPassword(target.value)}
@@ -75,7 +77,7 @@ export default function SignUpPage() {
                     />
                 </div>
                 <div className='form-actions'>
-                    <button type='submit' className="submit-btn">إرسال</button>
+                    <button type='submit' className="btn">إرسال</button>
                 </div>
             </form>
         )

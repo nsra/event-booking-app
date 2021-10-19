@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react' 
+import React, { useState } from 'react' 
 import './App.css' 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom' 
 import Navbar from './components/Navbar' 
@@ -10,17 +10,9 @@ import AuthContext from './context/auth-context'
 import PrivateRoute from './components/PrivateRoute' 
 
 function App() {
-  let [token, setToken] = useState(null) 
-  let [userId, setUserId] = useState(null) 
-  let [username, setUsername] = useState(null) 
-  let user_name= "";
-  useEffect(() => {
-    if (localStorage.getItem('token') && localStorage.getItem('userId')) {
-      setToken(localStorage.getItem('token')) 
-      setUserId(localStorage.getItem('userId')) 
-      setUsername(localStorage.getItem('username'))
-    }
-  }, [token, user_name, username]) 
+  let [token, setToken] = useState(localStorage.getItem('token') || '') 
+  let [userId, setUserId] = useState(localStorage.getItem('userId') || '') 
+  let [username, setUsername] = useState(localStorage.getItem('username') || '') 
 
   const login = (userToken, loginUserId, username) => {
     setToken(userToken) 
@@ -62,4 +54,3 @@ function App() {
 }
 
 export default App 
-

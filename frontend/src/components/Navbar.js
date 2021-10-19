@@ -6,7 +6,7 @@ export default function MainNavigation() {
     const value = useContext(AuthContext)
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light main-navigation">
+        <nav className="navbar navbar-expand-md navbar-light main-navigation">
             <div className="container-fluid">
                 <NavLink to="/events" className="navbar-brand">
                     <h1> أحداث حسوب</h1>

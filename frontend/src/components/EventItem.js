@@ -5,19 +5,23 @@ export default function EventItem({ _id, title, price, date, description, creato
     const value = useContext(AuthContext)
 
     return (
-        <li className='events-list-item'>
-            <div>
-                <h1>{title}</h1>
-                <h2>
-                    ${price} - {new Date(date).toLocaleDateString()}
-                </h2>
+        <div className='events-list-item col-md-4 col-lg-3 col-6'>
+            <div className="text-center align-items-center flex-column d-grid gap-3">
+                <div className="p2">
+                    <h1>{title}</h1>
+                </div>
+                <div className="p-3">
+                    <h2>
+                        ${price} - {new Date(date).toLocaleDateString()}
+                    </h2>
+                </div>
+                <div className="p-2">
+                    <button className='btn' onClick={() => onDetail(_id)}>
+                        {value.userId === creator._id ? "أنت صاحب هذا الحدث" : "عرض التفاصيل"}
+                    </button>
+                </div>
             </div>
-            <div>
-                <button className='btn' onClick={() => onDetail(_id)}>
-                    {value.userId === creator._id ? "أنت صاحب هذا الحدث" : "عرض التفاصيل"}
-                </button>
-            </div>
-        </li>
+        </div >
     )
 }
 

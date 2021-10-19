@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner"
 export default class Spinner extends React.Component {
     render() {
         return (
-            <div className="spinner">
+            <div className="d-flex justify-content-center">
                 <Loader
                     type="Puff"
                     color="#cc6600"

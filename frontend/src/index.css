@@ -7,17 +7,28 @@ body {
   direction: rtl;
 }
 
+.main-content {
+  margin: .7rem .7rem;
+}
+
 .main-navigation {
   background: #cc6600;
-  padding: 0 2rem;
+  padding: 0rem 2rem!important;
   font-size: 1.2rem;
 }
 
+h1, h2{
+  font-weight: bold!important;
+  line-height: 2!important;
+}
+
+h2{
+  font-size: 1.5em!important;
+}
+
 .navbar-brand h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #dfcefc;
-  margin-left: 1rem;
+  font-size: 1.5rem!important;
+  color: #dfcefc!important;
 }
 
 .main-navigation-items{
@@ -79,33 +90,15 @@ body {
   padding-top: 2%;
 }
 
-.alert {
-    position: relative;
-    padding: 0.75rem 1.25rem;
-    margin-bottom: 1rem;
-    border: 1px solid transparent;
-    border-radius: 0.25rem;
-    background-color: #e2e3e5;
-    border-color: #d6d8db;
-}
-
-.spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .events-control {
-  text-align: center;
   border: 1px solid #cc6600;
-  padding-bottom: 1rem;
   margin: 2rem auto;
   margin-bottom: 0;
   width: 30rem;
   max-width: 80%;
 }
 
-.backdrop {
+.custom-backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -119,6 +112,14 @@ body {
 .form-control textarea {
   width: 98%;
   font-size: 18px;
+} 
+
+[type=email], [type=number], [type=date]{
+  direction: rtl!important;
+}
+
+.cancel {
+  margin-right: 10px!important;
 }
 
 .form-control label {
@@ -131,26 +132,15 @@ body {
 
 .form-actions button,
 .btn {
-  background: #cc6600;
-  font: inherit;
-  border: 1px solid #cc6600;
-  border-radius: 3px;
-  padding: 0.25rem 1rem;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
-  color: white;
-  cursor: pointer;
-  outline: none;
+  background: #cc6600!important;
+  color: white!important;
 }
 
 button[disabled], 
 button[disabled]:hover{
-  background-color: #999999;
-  border-color: #999999;
-  cursor: not-allowed;
-}
-
-.submit-btn{
-  margin-left: 1rem;
+  background-color: #999999!important;
+  border-color: #999999!important;
+  cursor: not-allowed!important;
 }
 
 button > a {
@@ -168,73 +158,27 @@ div > h2 {
 .form-actions button:active,
 .btn:hover,
 .btn:active {
-  background: #ff8000;
-  border-color: #ff8000;
-}
-
-.bookings-list {
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  width: 40rem;
-  max-width: 90%;
+  background: #ff8000!important;
+  border-color: #ff8000!important;
 }
 
 .bookings-item {
   margin: 0.5rem 0;
   padding: 0.5rem;
   border: 1px solid #cc6600;
-  display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.bookings-control {
-  text-align: center;
-  padding: 0.5rem;
-}
-
-.bookings-control button {
-  font: inherit;
-  border: none;
-  background: transparent;
-  color: #000000;
-  padding: 0.25rem 3rem;
-  border-bottom: 2px solid transparent;
-  outline: none;
-  cursor: pointer;
-}
-
-.bookings-control button.active {
-  border-bottom: 2px solid #cc6600;
-  color: #cc6600;
-}
-
-.events-list {
-  width: 100%;
-  align-items: center;
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap; 
-}
-
 .events-list-item {
-  width: 15rem;
-  height: 10rem;
-  padding: 2rem 1rem;
-  padding-top: 1rem;
-  border-radius: 5px;
+  width: 17rem!important;
+  height: 15rem!important;
+  padding-top: 1rem!important;
+  border-radius: 5px!important;
   border: 1px solid #cc6600;
-  text-align: center;
-  color: #111111;
-  box-shadow: 0px 3px 4px -7px rgba(0, 0, 0, 0.5);
   margin: 0 2rem 2rem 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; 
-  overflow: auto;
+  flex-direction: column!important;
+  overflow: auto!important;
 }
  
 .events-list-item h1 {
@@ -245,15 +189,11 @@ div > h2 {
 
 .events-list-item h2 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1rem!important;
   color: #7c7c7c;
 }
 
-.events-list-item p {
-  margin: 0;
-}
-
-.modal {
+.custom-modal {
   width: 50rem;
   max-width: 90%;
   background: #ffffff;
@@ -264,24 +204,24 @@ div > h2 {
   z-index: 100;
 }
 
-.modal-header {
+.custom-modal-header {
   padding: .5rem;
   background: #cc6600;
   color: #ffffff;
   font-size: 1.25rem;
 }
 
-.modal-header h1 {
+.custom-modal-header h1 {
   margin: 0;
   font-size: 1.25rem;
 }
 
-.modal-content {
+.custom-modal-content {
   padding: 1rem;
   padding-bottom: 0;
 }
 
-.modal-actions {
+.custom-modal-actions {
   display: flex;
   justify-content: flex-end;
   padding: 1rem;
@@ -289,7 +229,7 @@ div > h2 {
 }
 
 @media (min-width: 768px) {
-  .modal {
+  .custom-modal {
     width: 30rem;
     left: calc((100% - 30rem) / 2);
   }
