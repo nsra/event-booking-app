@@ -5,24 +5,35 @@ import { LOGIN } from '../queries'
 import AuthContext from '../context/auth-context'
 import Error from './Error'
 import Spinner from './Spinner'
-export default function Login({ passedEmail, passedPassword }) {
+export default function Login({ passedEmail, passedPassword, passedAlert }) {
     const value = useContext(AuthContext)
-    const [alert, setAlert] = useState('')
-    const [email, setEmail] = useState(passedEmail || '')
-    const [password, setPassword] = useState(passedPassword || '')
+    const [alert, setAlert] = useState(passedAlert)
+    const [email, setEmail] = useState(passedPassword)
+    // const [pemail, setPEmail] = useState(passedEmail || '')
+    // const [ppassword, setPPassword] = useState(passedPassword || '')
+    const [password, setPassword] = useState(passedPassword)
     const history = useHistory();
     const [login, { loading, data }] = useMutation(LOGIN, {
-        onError: (error) => setAlert(error.message)
+        onError: (error) => setAlert(error.message),
+        // onCompleted: () => {
+        //     setPPassword("")
+        //     setPEmail("")
+        // }
     })
+    if(loading) <Spinner />
+    // if(data) console.log(data.login + "data.login")
+    if (passedEmail && passedPassword) {
+        console.log(passedEmail + "from norm")
+    }
     useEffect(() => {
-        console.log(password)
-        if (email.trim().length > 0 && password.trim().length > 0) {
-            login({
-                variables: { email: email.trim(), password: password.trim() }
-            })
-            setEmail("")
-            setPassword("")
-        }
+        // if (pemail && ppassword) {
+        //     login({
+        //         variables: { email: passedEmail, password: passedPassword }
+        //     })
+        //     setPPassword("")
+        //     setPEmail("")
+        //     console.log(ppassword + "from effect")
+        // }
         if (!loading && data) {
             const token = data.login.token
             const userId = data.login.userId
@@ -30,7 +41,7 @@ export default function Login({ passedEmail, passedPassword }) {
             value.login(token, userId, username)
             console.log(data.login.username)
         }
-    }, [data, loading, value, email, password, login])
+    }, [data, loading, value, passedEmail, passedPassword, login])
 
     if (loading) return <Spinner />
 
@@ -65,7 +76,10 @@ export default function Login({ passedEmail, passedPassword }) {
             </div>
             <div className='form-actions'>
                 <button type='submit' className="submit-btn">إرسال</button>
-                <button type="button" onClick={() => history.push('/signup')}>
+                <button type="button" onClick={() => {
+                    history.push('/signup')
+                    setAlert("")
+                }}>
                     انتقل إلى إنشاء حساب
                 </button>
             </div>

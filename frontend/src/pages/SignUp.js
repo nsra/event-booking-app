@@ -25,9 +25,9 @@ export default function SignUpPage() {
         })
         if (loading) return <Spinner />
         if (data) {
-            console.log(data.createUser.username)
-            return <Login passedEmail={data.createUser.email}
+           return <Login passedEmail={data.createUser.email}
                 passedPassword={data.createUser.passedEmail}
+                passedAlert={alert}
             />
         }
 
