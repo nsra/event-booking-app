@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import './App.css' 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom' 
 import Navbar from './components/Navbar' 
-import LoginPage from './pages/Login' 
 import EventsPage from './pages/Events' 
 import BookingsPage from './pages/Bookings' 
 import SignUpPage from './pages/SignUp' 
 import AuthContext from './context/auth-context'
 import PrivateRoute from './components/PrivateRoute' 
-
+import Login from './components/Login' 
 
 function App() {
   let [token, setToken] = useState(null) 
@@ -46,12 +45,13 @@ function App() {
           <Navbar />
           <main className="main-content">
             <Switch>
-              {!token && <Route path='/login' component={LoginPage} />}
+              {!token && <Route path='/login' component={Login} />}
               {token && <Route path='/bookings' component={BookingsPage} />}
               <Redirect from='/' to='/events' exact />
               {token && <Redirect from='/login' to='/events' />}
               <Route path='/events' component={EventsPage} />
-              <Route path='/signUp' component={SignUpPage} />
+              <Route path='/signup' component={SignUpPage} />
+              {token && <Redirect from='/signup' to='/events' />}
               <PrivateRoute path='/bookings' component={BookingsPage} />
             </Switch>
           </main>

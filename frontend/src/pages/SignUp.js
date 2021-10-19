@@ -1,51 +1,45 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client'
-import { CREATE_USER, LOGIN} from '../queries'
+import { CREATE_USER, LOGIN } from '../queries'
 import Error from '../components/Error'
 import Spinner from '../components/Spinner'
-import AuthContext from '../context/auth-context' 
+import AuthContext from '../context/auth-context'
+import Login from '../components/Login'
+
 
 export default function SignUpPage() {
     const [alert, setAlert] = useState("")
-    const value = useContext(AuthContext) 
+    const value = useContext(AuthContext)
 
     function SignUp() {
         const [username, setUsername] = useState("")
         const [email, setEmail] = useState("")
         const [password, setPassword] = useState("")
         const history = useHistory();
-        const [signup, { loading }] = useMutation(CREATE_USER, {
+        const [signup, { loading, error, data }] = useMutation(CREATE_USER, {
             onError: (error) => setAlert(error.message),
             onCompleted: () => {
                 setAlert("تم إنشاء الحساب بنجاح")
             }
         })
-        const [login, {data}] = useMutation(LOGIN)
-
-        useEffect(() => {
-            if (!loading && data) {
-                const token = data.login.token 
-                const userId = data.login.userId 
-                const username = data.login.username
-                value.login(token, userId, username) 
-                console.log(data.login)
-            }
-        }, [data, loading]) 
-
-        if (loading) return <Spinner /> 
+        if (loading) return <Spinner />
+        if (data) {
+            console.log(data.createUser.username)
+            return <Login passedEmail={data.createUser.email}
+                passedPassword={data.createUser.passedEmail}
+            />
+        }
 
         return (
-            <form className='auth-form' onSubmit={() => {
+            <form className='auth-form' onSubmit={(event) => {
+                event.preventDefault()
                 if (username.trim().length < 3 || password.trim().length < 6) {
                     setAlert("يجب ملئ جميع الحقول بالشكل الصحيح!")
                     return
                 }
                 signup({
-                    variables: { username: username, email: email, password: password }
-                })
-                login({
-                    variables: { email: email, password: password }
+                    variables: { username: username.trim(), email: email.trim(), password: password.trim() }
                 })
             }}>
                 <Error error={alert} />
@@ -90,4 +84,3 @@ export default function SignUpPage() {
         <SignUp />
     )
 }
-

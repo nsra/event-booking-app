@@ -40,7 +40,7 @@ const authResolver = {
                     password: hashedPassword
                 })
                 await user.save()
-                return user
+                return {...user._doc, password: args.userInput.password }
             } catch (err) {
                 throw err
             }
