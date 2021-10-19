@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Cairo', sans-serif;
+  font-family: 'Cairo', sans-serif!important;
   direction: rtl;
 }
 
@@ -140,6 +140,13 @@ body {
   color: white;
   cursor: pointer;
   outline: none;
+}
+
+button[disabled], 
+button[disabled]:hover{
+  background-color: #999999;
+  border-color: #999999;
+  cursor: not-allowed;
 }
 
 .submit-btn{
@@ -287,3 +294,4 @@ div > h2 {
     left: calc((100% - 30rem) / 2);
   }
 }
+
