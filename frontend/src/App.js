@@ -44,7 +44,7 @@ function App() {
               <CustomRedirect  from='/signup' to='/events' />
               <Route path='/events' component={EventsPage} />
               <Route path='/signup' component={SignUpPage} />
-              <CustomRedirect path='/bookings' component={BookingsPage} />
+              <CustomRedirect from='/bookings' to='/login' />
             </Switch>
           </main>
         </AuthContext.Provider>
