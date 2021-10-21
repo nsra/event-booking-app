@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../queries'
-import AuthContext from '../context/auth-context'
+import { AuthContext } from "../App"
 import Error from '../components/Error'
 import Spinner from '../components/Spinner'
 
@@ -24,7 +24,7 @@ export default function LoginPage() {
                 const username = data.login.username
                 value.login(token, userId, username)
             }
-        }, [data, loading])
+        }, [data, loading, login])
 
         if (loading) return <Spinner />
 

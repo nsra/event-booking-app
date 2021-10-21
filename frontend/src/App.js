@@ -6,21 +6,21 @@ import LoginPage from './pages/Login'
 import EventsPage from './pages/Events' 
 import BookingsPage from './pages/Bookings' 
 import SignUpPage from './pages/SignUp' 
-import AuthContext from './context/auth-context'
 import CustomRedirect from './components/CustomRedirect' 
+export const AuthContext = React.createContext({})
 
 function App() {
-  let [token, setToken] = useState(localStorage.getItem('token') || '') 
-  let [userId, setUserId] = useState(localStorage.getItem('userId') || '') 
-  let [username, setUsername] = useState(localStorage.getItem('username') || '') 
+  const [token, setToken] = useState(localStorage.getItem('token') || '') 
+  const [userId, setUserId] = useState(localStorage.getItem('userId') || '') 
+  const [username, setUsername] = useState(localStorage.getItem('username') || '') 
 
   const login = (userToken, loginUserId, username) => {
     setToken(userToken) 
     setUserId(loginUserId) 
     setUsername(username)
-    if(userToken) localStorage.setItem("token", userToken) 
-    if(loginUserId) localStorage.setItem("userId", loginUserId) 
-    if(username) localStorage.setItem("username", username) 
+    localStorage.setItem("token", userToken) 
+    localStorage.setItem("userId", loginUserId) 
+    localStorage.setItem("username", username) 
   } 
 
   const logout = () => {

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Redirect } from 'react-router-dom'
-import AuthContext from '../context/auth-context'
+import { AuthContext } from "../App"
 
 export default function CustomRedirect({ from, to }) {
     const value = useContext(AuthContext)

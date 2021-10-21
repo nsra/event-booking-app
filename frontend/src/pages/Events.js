@@ -4,7 +4,7 @@ import { EVENTS, BOOK_EVENT, CREATE_EVENT, EVENT_ADDED } from '../queries'
 import EventItem from '../components/EventItem'
 import Modal from '../components/Modal'
 import Backdrop from '../components/Backdrop'
-import AuthContext from '../context/auth-context'
+import { AuthContext } from "../App"
 import { NavLink } from 'react-router-dom'
 import Error from '../components/Error'
 import Spinner from '../components/Spinner'
