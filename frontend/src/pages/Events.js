@@ -195,10 +195,10 @@ export default function EventsPage() {
                     isDisabled={selectedEvent.creator._id === value.userId ? true : false}
                 >
                     <h2 className="text-center">{selectedEvent.title}</h2>
-                    <h3>
+                    <h4>
                         ${selectedEvent.price} -{' '}
                         {new Date(selectedEvent.date).toLocaleDateString()}
-                    </h3>
+                    </h4>
                     <p>{selectedEvent.description}</p>
                 </Modal>
             )}
