@@ -38,12 +38,12 @@ function App() {
           <main className="main-content">
             <Switch>
               {!token && <Route path='/login' component={LoginPage} />}
+              {!token && <Route path='/signup' component={SignUpPage} />}
               {token && <Route path='/bookings' component={BookingsPage} />}
               <Redirect from='/' to='/events' exact />
               <CustomRedirect from='/login' to='/events' />
               <CustomRedirect  from='/signup' to='/events' />
               <Route path='/events' component={EventsPage} />
-              <Route path='/signup' component={SignUpPage} />
               <CustomRedirect from='/bookings' to='/login' />
             </Switch>
           </main>

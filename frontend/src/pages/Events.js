@@ -194,11 +194,11 @@ export default function EventsPage() {
                     confirmText={value.token ? 'احجز' : <NavLink to='/login'>سجل دخول لتحجز</NavLink>}
                     isDisabled={selectedEvent.creator._id === value.userId ? true : false}
                 >
-                    <h1>{selectedEvent.title}</h1>
-                    <h2>
+                    <h2 className="text-center">{selectedEvent.title}</h2>
+                    <h3>
                         ${selectedEvent.price} -{' '}
                         {new Date(selectedEvent.date).toLocaleDateString()}
-                    </h2>
+                    </h3>
                     <p>{selectedEvent.description}</p>
                 </Modal>
             )}

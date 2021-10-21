@@ -208,12 +208,6 @@ div > h2 {
   padding: .5rem;
   background: #cc6600;
   color: #ffffff;
-  font-size: 1.25rem;
-}
-
-.custom-modal-header h1 {
-  margin: 0;
-  font-size: 1.25rem;
 }
 
 .custom-modal-content {
