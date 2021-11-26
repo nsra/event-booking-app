@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Modal({
   title,
-  children,
+  body,
   onConfirm,
   onCancel,
   confirmText,
@@ -11,7 +11,7 @@ export default function Modal({
   return (
     <div className='custom-modal'>
       <header className='custom-modal-header'>{title}</header>
-      <section className='custom-modal-content'>{children}</section>
+      <section className='custom-modal-content'>{body}</section>
       <section className='custom-modal-actions'>
         <button className='btn' onClick={onConfirm} disabled={isDisabled}>
           {confirmText}
