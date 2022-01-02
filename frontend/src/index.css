@@ -98,15 +98,6 @@ h2{
   max-width: 80%;
 }
 
-.custom-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.75);
-}
-
 .form-control label,
 .form-control input,
 .form-control textarea {
@@ -120,14 +111,6 @@ h2{
 
 .cancel {
   margin-right: 10px!important;
-}
-
-.form-control label {
-  margin-bottom: 0.5rem;
-}
-
-.form-control {
-  margin-bottom: 1rem;
 }
 
 .form-actions button,
@@ -194,44 +177,24 @@ div > h2 {
 }
 
 .custom-modal {
-  width: 50rem;
-  max-width: 90%;
-  background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   position: fixed;
-  top: 10vh;
-  left: 5%;
-  z-index: 100;
+  top: 5%;
+  left: 0;
+  z-index: 2000;
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
 }
 
 .custom-modal-header {
-  padding: .5rem;
+  height: 50px !important;
   background: #cc6600;
   color: #ffffff;
   font-size: 1.25rem;
 }
 
-.custom-modal-header h1 {
-  margin: 0;
-  font-size: 1.25rem;
-}
 
-.custom-modal-content {
-  padding: 1rem;
-  padding-bottom: 0;
-}
-
-.custom-modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 1rem;
-  padding-top: 0;
-}
-
-@media (min-width: 768px) {
-  .custom-modal {
-    width: 30rem;
-    left: calc((100% - 30rem) / 2);
-  }
-}
 

@@ -2,8 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client'
 import { EVENTS, BOOK_EVENT, CREATE_EVENT, EVENT_ADDED } from '../queries'
 import EventItem from '../components/EventItem'
-import Modal from '../components/Modal'
-import Backdrop from '../components/Backdrop'
+import SimpleModal from '../components/SimpleModal'
 import AuthContext from '../context/auth-context'
 import { NavLink } from 'react-router-dom'
 import Error from '../components/Error'
@@ -103,9 +102,8 @@ export default function EventsPage() {
     return (
         <React.Fragment>
             {value.token && <Error error={alert} />}
-            {(creating || selectedEvent) && <Backdrop />}
             {creating && (
-                <Modal
+                <SimpleModal
                     title='إضافة حدث'
                     onCancel={() => {
                         setCreating(false)
@@ -134,7 +132,7 @@ export default function EventsPage() {
                 >
                     <form>
                         <Error error={modelAlert} />
-                        <div className="mb-3 mt-2">
+                        <div className="mb-1">
                             <label className="form-label" htmlFor='title'>العنوان</label>
                             <input
                                 className="form-control"
@@ -145,7 +143,7 @@ export default function EventsPage() {
                                 onChange={({ target }) => setTitle(target.value)}
                             />
                         </div>
-                        <div className="mb-3 mt-2">
+                        <div className="mb-1 mt-1">
                             <label className="form-label" htmlFor='price'>السعر</label>
                             <input
                                 className="form-control"
@@ -156,7 +154,7 @@ export default function EventsPage() {
                                 onChange={({ target }) => setPrice(target.value)}
                             />
                         </div>
-                        <div className="mb-3 mt-2">
+                        <div className="mb-1 mt-1">
                             <label className="form-label" htmlFor='date'>التاريخ</label>
                             <input
                                 className="form-control"
@@ -167,7 +165,7 @@ export default function EventsPage() {
                                 onChange={({ target }) => setDate(target.value)}
                             />
                         </div>
-                        <div className="mb-3 mt-2">
+                        <div className="mb-1 mt-1">
                             <label className="form-label" htmlFor='description'>التفاصيل</label>
                             <textarea
                                 className="form-control"
@@ -178,10 +176,10 @@ export default function EventsPage() {
                             />
                         </div>
                     </form>
-                </Modal>
+                </SimpleModal>
             )}
             {selectedEvent && (
-                <Modal
+                <SimpleModal
                     title='حجز الحدث'
                     onCancel={() => {
                         setCreating(false)
@@ -194,13 +192,13 @@ export default function EventsPage() {
                     confirmText={value.token ? 'احجز' : <NavLink to='/login'>سجل دخول لتحجز</NavLink>}
                     isDisabled={selectedEvent.creator._id === value.userId ? true : false}
                 >
-                    <h2>{selectedEvent.title}</h2>
-                    <h2>
+                    <h4 className='mb-4'>{selectedEvent.title}</h4>
+                    <h4 className='mb-4'>
                         ${selectedEvent.price} -{' '}
                         {new Date(selectedEvent.date).toLocaleDateString()}
-                    </h2>
+                    </h4>
                     <p>{selectedEvent.description}</p>
-                </Modal>
+                </SimpleModal>
             )}
             {value.token && (
                 <div className='events-control pt-2 text-center pb-3'>
