@@ -4,7 +4,7 @@ import { EVENTS, BOOK_EVENT, CREATE_EVENT, EVENT_ADDED } from '../queries'
 import EventItem from '../components/EventItem'
 import Modal from '../components/Modal'
 import Backdrop from '../components/Backdrop'
-import { AuthContext } from "../App"
+import AuthContext from '../context/auth-context'
 import { NavLink } from 'react-router-dom'
 import Error from '../components/Error'
 import Spinner from '../components/Spinner'
@@ -194,11 +194,11 @@ export default function EventsPage() {
                     confirmText={value.token ? 'احجز' : <NavLink to='/login'>سجل دخول لتحجز</NavLink>}
                     isDisabled={selectedEvent.creator._id === value.userId ? true : false}
                 >
-                    <h2 className="text-center">{selectedEvent.title}</h2>
-                    <h4>
+                    <h2>{selectedEvent.title}</h2>
+                    <h2>
                         ${selectedEvent.price} -{' '}
                         {new Date(selectedEvent.date).toLocaleDateString()}
-                    </h4>
+                    </h2>
                     <p>{selectedEvent.description}</p>
                 </Modal>
             )}

@@ -2,13 +2,13 @@ import React from 'react'
 
 export default function BookingItem({ _id, event, createdAt, onCancelBooking }) {
   return (
-    <div className='bookings-item d-flex'>
+    <li className='bookings-item d-flex'>
       <div>
         {event.title} - {new Date(createdAt).toLocaleDateString()} - {event.price}$
       </div>
       <button className='btn' onClick={() => onCancelBooking(_id)}>
         إلغاء
       </button>
-    </div>
+    </li>
   );
 }

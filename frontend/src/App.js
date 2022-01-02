@@ -6,21 +6,21 @@ import LoginPage from './pages/Login'
 import EventsPage from './pages/Events' 
 import BookingsPage from './pages/Bookings' 
 import SignUpPage from './pages/SignUp' 
-import CustomRedirect from './components/CustomRedirect' 
-export const AuthContext = React.createContext({})
+import AuthContext from './context/auth-context'
+import PrivateRoute from './components/PrivateRoute' 
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem('token') || '') 
-  const [userId, setUserId] = useState(localStorage.getItem('userId') || '') 
-  const [username, setUsername] = useState(localStorage.getItem('username') || '') 
+  let [token, setToken] = useState(localStorage.getItem('token') || '') 
+  let [userId, setUserId] = useState(localStorage.getItem('userId') || '') 
+  let [username, setUsername] = useState(localStorage.getItem('username') || '') 
 
   const login = (userToken, loginUserId, username) => {
     setToken(userToken) 
     setUserId(loginUserId) 
     setUsername(username)
-    localStorage.setItem("token", userToken) 
-    localStorage.setItem("userId", loginUserId) 
-    localStorage.setItem("username", username) 
+    if(userToken) localStorage.setItem(["token"], userToken) 
+    if(loginUserId) localStorage.setItem("userId", loginUserId) 
+    if(username) localStorage.setItem("username", username) 
   } 
 
   const logout = () => {
@@ -38,13 +38,13 @@ function App() {
           <main className="main-content">
             <Switch>
               {!token && <Route path='/login' component={LoginPage} />}
-              {!token && <Route path='/signup' component={SignUpPage} />}
               {token && <Route path='/bookings' component={BookingsPage} />}
               <Redirect from='/' to='/events' exact />
-              <CustomRedirect from='/login' to='/events' />
-              <CustomRedirect  from='/signup' to='/events' />
+              {token && <Redirect from='/login' to='/events' />}
+              {token && <Redirect from='/signup' to='/events' />}
               <Route path='/events' component={EventsPage} />
-              <CustomRedirect from='/bookings' to='/login' />
+              <Route path='/signup' component={SignUpPage} />
+              <PrivateRoute path='/bookings' component={BookingsPage} />
             </Switch>
           </main>
         </AuthContext.Provider>
