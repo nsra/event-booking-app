@@ -11,7 +11,7 @@ import { setContext } from "apollo-link-context"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css" 
 
 const httpLink = new HttpLink({
-  uri: 'https://still-spire-78621.herokuapp.com/graphql',
+  uri: 'https://still-spire-78621.herokuapp.com/graphql', 
   credentials: 'same-origin'
 }) 
 const authLink = setContext((_, { headers }) => {

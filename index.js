@@ -7,7 +7,6 @@ const mongoose = require('mongoose')
 const User = require('./models/user')
 const jwt = require('jsonwebtoken')
 const { SubscriptionServer } = require('subscriptions-transport-ws')
-// const { createServer } = require('http')
 const { makeExecutableSchema } = require('@graphql-tools/schema')
 const { execute, subscribe } = require('graphql')
 const http = require('http')
@@ -28,14 +27,14 @@ async function startApolloServer(typeDefs, resolvers) {
 
     const server = new ApolloServer({
         schema,
-        context: async ({ req }) => {
-            const auth = req ? req.headers.authorization : null
-            if (auth) {
-                const decodedToken = jwt.verify(
-                    auth.split(' ')[1], process.env.JWT_SECRET
-                )
-                const user = await User.findById(decodedToken.id)
+        context: ({ req }) => {
+            const auth = req ? req.headers.authorization : null 
+            try{
+                const decodedToken = jwt.verify(auth.slice(4), JWT_SECRET)
+                const user = User.findById(decodedToken.id)
                 return { user }
+            }catch(err){
+                return null
             }
         },
         plugins: [
