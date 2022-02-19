@@ -12,7 +12,15 @@ const eventResolver = {
   Query: {
     events: async () => {
       try {
-        const events = await Event.find().populate('creator') 
+        const events = await Event.find({}).sort({created_at: 'desc'}).populate('creator') 
+        return events.map(event => transformEvent(event)) 
+      } catch (error) {
+        throw error 
+      }
+    },
+    getUserEvents: async (_, { userId }) => {
+      try {
+        const events = await Event.find({ creator : userId })
         return events.map(event => transformEvent(event)) 
       } catch (error) {
         throw error 
@@ -38,13 +46,6 @@ const eventResolver = {
       try {
         const result = await event.save() 
         createdEvent = transformEvent(result) 
-        const creator = await User.findById(context.user._id) 
-
-        if (!creator) {
-          throw new Error('صاحب هذه المناسبة غير موجود') 
-        }
-        creator.createdEvents.push(event) 
-        await creator.save() 
         pubsub.publish('EVENT_ADDED', { eventAdded: createdEvent }) 
         return createdEvent 
       } catch (err) {

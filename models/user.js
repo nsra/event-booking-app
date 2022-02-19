@@ -14,13 +14,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  },
-  createdEvents: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Event'
-    }
-  ]
+  }
 }) 
 
 module.exports = mongoose.model('User', userSchema) 

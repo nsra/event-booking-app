@@ -4,7 +4,7 @@ const typeDefs = gql`
     type Query {
         events: [Event!]
         bookings: [Booking!] #authenticated user bookings
-        # greeting: String!
+        getUserEvents(userId: String!): [Event]
     }
 
     type AuthData {
@@ -18,7 +18,6 @@ const typeDefs = gql`
         username: String!
         email: String!
         password: String!
-        createdEvents: [Event!]
     }
 
     input UserInput {

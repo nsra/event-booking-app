@@ -9,7 +9,7 @@ const transformBooking = booking => ({
   updatedAt: booking.updatedAt.toDateString()
 }) 
 
-// exports.transformEvent = transformEvent 
-// exports.transformBooking = transformBooking 
+exports.transformEvent = transformEvent 
+exports.transformBooking = transformBooking 
 
-module.exports = {transformEvent, transformBooking}
+// module.exports = { transformEvent, transformBooking }
