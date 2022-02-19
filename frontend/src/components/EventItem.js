@@ -17,7 +17,7 @@ export default function EventItem({ _id, title, price, date, description, creato
                 </div>
                 <div className="p-2">
                     <button className='btn' onClick={() => onDetail(_id)}>
-                        {value.userId === creator._id ? "أنت صاحب هذا الحدث" : "عرض التفاصيل"}
+                        {value.userId === creator._id ? "أنت صاحب هذه المناسبة" : "عرض التفاصيل"}
                     </button>
                 </div>
             </div>

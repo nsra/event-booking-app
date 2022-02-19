@@ -68,7 +68,7 @@ export default function BookingsPage() {
 
     return (
         <div className="container-fluid">
-            <h2>الأحداث التي حجزتها</h2>
+            <h2>المناسبات التي حجزتها</h2>
             <BookingsList />
         </div>
     )

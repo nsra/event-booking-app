@@ -24,7 +24,7 @@ const eventResolver = {
     createEvent: combineResolvers(isLoggedin, async (_, args, context) => {
       const ExistingEvent = await Event.findOne({ title: args.eventInput.title }) 
       if (ExistingEvent) {
-        throw new UserInputError('يوجد لدينا حدث بنفس هذا العنوان، الرجاء اختيار عنوان آخر!!') 
+        throw new UserInputError('يوجد لدينا مناسبة بنفس هذا العنوان، الرجاء اختيار عنوان آخر!!') 
       }
       const event = new Event({
         title: args.eventInput.title,
@@ -41,7 +41,7 @@ const eventResolver = {
         const creator = await User.findById(context.user._id) 
 
         if (!creator) {
-          throw new Error('صاحب هذا الحدث غير موجود') 
+          throw new Error('صاحب هذه المناسبة غير موجود') 
         }
         creator.createdEvents.push(event) 
         await creator.save() 

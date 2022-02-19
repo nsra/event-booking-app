@@ -9,7 +9,7 @@ export default function MainNavigation() {
         <nav className="navbar navbar-expand-md navbar-light main-navigation">
             <div className="container-fluid">
                 <NavLink to="/events" className="navbar-brand">
-                    <h1> أحداث حسوب</h1>
+                    <h1> مناسبات حسوب</h1>
                 </NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarContent" aria-controls="navbarSupportedContent"
@@ -29,7 +29,7 @@ export default function MainNavigation() {
                             </li>
                         )}
                         <li className="nav-item">
-                            <NavLink to='/events'>الأحداث</NavLink>
+                            <NavLink to='/events'>المناسبات</NavLink>
                         </li>
                     </ul>
                     {value.token && (
