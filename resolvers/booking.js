@@ -32,7 +32,7 @@ const bookingResolver = {
       return transformBooking(result) 
     }),
 
-    cancelBooking: combineResolvers(isLoggedin, async (_, args, context) => {
+    cancelBooking: combineResolvers(isLoggedin, async (_, args) => {
       try {
         const booking = await Booking.findById(args.bookingId).populate('event') 
         const event = transformEvent(booking.event) 
