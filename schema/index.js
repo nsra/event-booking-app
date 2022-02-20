@@ -4,7 +4,7 @@ const typeDefs = gql`
     type Query {
         events: [Event!]
         bookings: [Booking!] #authenticated user bookings
-        getUserEvents(userId: String!): [Event]
+        getUserEvents(userId: ID!): [Event]
     }
 
     type AuthData {

@@ -33,9 +33,14 @@ export default function EventsPage() {
     })
 
     function EventList() {
-        const { loading, error, data } = useQuery(EVENTS, {
-            onCompleted: () => setEvents(data.events)
+        const { loading, error, data } = useQuery(EVENTS)
+        
+        useEffect(() => {
+            if(data) {
+                setEvents(data.events)
+            }
         })
+
         if (loading) { return <Spinner /> }
         if (error) {
             setAlert(error.message)

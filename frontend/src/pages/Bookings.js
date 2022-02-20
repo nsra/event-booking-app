@@ -1,37 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Spinner from '../components/Spinner'
 import { BOOKINGS, CANCEL_BOOKING } from '../queries'
 import BookingItem from '../components/BookingItem'
 import { useQuery, useMutation, useApolloClient } from "@apollo/client"
 import Error from '../components/Error'
 
-export default function BookingsPage() {
-    const [bookings, setBookings] = useState([])
+export default function BookingsPage () {
     const [alert, setAlert] = useState("")
     let canceledBooking = ""
     const client = useApolloClient()
 
     function BookingsList() {
-        const { loading, error, data } = useQuery(BOOKINGS, {
-            onError: (error) => setAlert(error.message)
-        })
+        const { loading, error, data } = useQuery(BOOKINGS)
 
-        useEffect(() => {
-            if (!loading && !error && data) {
-                setBookings(data.bookings)
-            }
-        }, [data, error, loading])
-
+        if (loading) { return <Spinner /> }
         if (error) {
             setAlert(error.message)
-            console.log("here")
-            return
+            return;
         }
+
+        client.refetchQueries({
+            include: "all",
+        })
 
         return (
             <React.Fragment>
                 <Error error={alert} />
-                {loading || cancelBookingLoading ? (
+                { cancelBookingLoading ? (
                     <Spinner />
                 ) : (
                     <div className="row">
@@ -56,14 +51,8 @@ export default function BookingsPage() {
     const [cancelBooking, { cancelBookingLoading }] = useMutation(CANCEL_BOOKING, {
         onError: (error) => setAlert(error.message),
         onCompleted: () => {
-            setBookings(bookings.filter(booking => booking._id !== canceledBooking))
             setAlert("تم إلغاء حجزك")
         }
-    })
-
-
-    client.refetchQueries({
-        include: "active",
     })
 
     return (
