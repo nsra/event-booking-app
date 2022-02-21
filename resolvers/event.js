@@ -18,13 +18,9 @@ const eventResolver = {
         throw error
       }
     },
-    getUserEvents: async (_, {
-      userId
-    }) => {
+    getUserEvents: async (_, { userId }) => {
       try {
-        const events = await Event.find({
-          creator: userId
-        })
+        const events = await Event.find({ creator: userId })
         return events.map(event => transformEvent(event))
       } catch (error) {
         throw error
@@ -34,9 +30,7 @@ const eventResolver = {
 
   Mutation: {
     createEvent: combineResolvers(isLoggedin, async (_, args, context) => {
-      const ExistingEvent = await Event.findOne({
-        title: args.eventInput.title
-      })
+      const ExistingEvent = await Event.findOne({ title: args.eventInput.title })
       if (ExistingEvent) {
         throw new UserInputError('يوجد لدينا مناسبة بنفس هذا العنوان، الرجاء اختيار عنوان آخر!!')
       }
@@ -63,9 +57,7 @@ const eventResolver = {
     deleteEvent: async (_, args) => {
       try {
         const events = await Event.find()
-        await Event.deleteOne({
-          _id: args.eventId
-        })
+        await Event.deleteOne({ _id: args.eventId })
         return events
       } catch (err) {
         throw err
