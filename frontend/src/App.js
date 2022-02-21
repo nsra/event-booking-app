@@ -1,13 +1,13 @@
 import React, { useState } from 'react' 
 import './App.css' 
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom' 
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom' 
 import Navbar from './components/Navbar' 
 import LoginPage from './pages/Login' 
 import EventsPage from './pages/Events' 
 import BookingsPage from './pages/Bookings' 
 import SignUpPage from './pages/SignUp' 
 import AuthContext from './context/auth-context'
-import CustomRedirect from './components/PrivateRoute' 
+import PrivateRoute from './components/PrivateRoute' 
 
 function App() {
   let [token, setToken] = useState(localStorage.getItem('token') || '') 
@@ -36,16 +36,27 @@ function App() {
         <AuthContext.Provider value={{ token, userId, username, login, logout }}>
           <Navbar />
           <main className="main-content">
-          <Switch>
-            {!token && <Route path='/login' component={LoginPage} />}
-            {token && <Route path='/bookings' component={BookingsPage} />}
-            <Redirect from='/' to='/events' exact />
-            <CustomRedirect from='/login' to='/events' />
-            <CustomRedirect  from='/signup' to='/events' />
-            <Route path='/events' component={EventsPage} />
-            <Route path='/signup' component={SignUpPage} />
-            <CustomRedirect from='/bookings' to='/login' />
-          </Switch>
+          <Routes>
+
+            {token && <Route path="/login" element={<Navigate replace to="/events" />} exact />}
+            {<Route path='/login' element={<LoginPage />} />}
+
+            {token && <Route path="/signup" element={<Navigate replace to="/events" />} exact />}
+            {<Route path='/signup' element={<SignUpPage />} exact />}
+            
+            <Route path="/" element={<Navigate replace to="/events" />} exact />
+            <Route path='/events' element={<EventsPage />} />
+
+            {!token && <Route path="/bookings" element={<Navigate replace to="/login" />} exact />}
+            {<Route path='/bookings' element={<BookingsPage />} />}
+            // the same as
+            <Route path='/bookings' element={
+              <PrivateRoute>
+                <BookingsPage />
+              </PrivateRoute>
+            } />
+
+          </Routes>
           </main>
         </AuthContext.Provider>
       </React.Fragment>

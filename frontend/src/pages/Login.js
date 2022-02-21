@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../queries'
 import AuthContext from '../context/auth-context'
@@ -13,7 +13,7 @@ export default function LoginPage() {
     function Login() {
         const [email, setEmail] = useState("")
         const [password, setPassword] = useState("")
-        const history = useHistory();
+        const navigate = useNavigate();
         const [login, { loading, data }] = useMutation(LOGIN, {
             onError: (error) => setAlert(error.message)
         })
@@ -61,7 +61,7 @@ export default function LoginPage() {
                 </div>
                 <div className='form-actions'>
                     <button className='btn m-2' type='submit' >إرسال</button>
-                    <button className='btn' onClick={() => history.push('/signUp')}>
+                    <button className='btn' onClick={() => navigate('/signUp')}>
                         انتقل إلى إنشاء حساب
                     </button>
                 </div>
