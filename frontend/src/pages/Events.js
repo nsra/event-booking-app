@@ -25,28 +25,28 @@ export default function EventsPage() {
         onSubscriptionData: async ({ subscriptionData }) => {
             if (subscriptionData.data) {
                 const addedEvent = subscriptionData.data.eventAdded
-                setAlert(`مناسبة جديدة بعنوان: ${addedEvent.title}، أُضيفت للتو`)
+                setAlert(`حدث جديد بعنوان: ${addedEvent.title}، أُضيف للتو`)
                 window.scrollTo(0, 0)
             }
-            if (subscriptionData.errors) setAlert("خطأ في جلب المناسبات الجديدة")
+            if (subscriptionData.errors) setAlert("خطأ في جلب الأحداث الجديدة")
         }
     })
 
     function EventList() {
         const { loading, error, data } = useQuery(EVENTS)
-        
+
         useEffect(() => {
-            if(data) {
+            if(!loading && !error && data) {
                 setEvents(data.events)
             }
-        })
-
+        }, [loading, error,data])
+        
         if (loading) { return <Spinner /> }
         if (error) {
             setAlert(error.message)
             return;
         }
-
+      
         client.refetchQueries({
             include: "active",
         })
@@ -75,30 +75,30 @@ export default function EventsPage() {
         },
         onCompleted: () => {
             setSelectedEvent(null)
-            setAlert("تم حجز المناسبة بنجاح")
+            setAlert("تم حجز الحدث بنجاح")
             window.scrollTo(0, 0)
         }
     })
 
-    const [eventConfirmHandler, { createEventLoading, createEventError, data }] = useMutation(CREATE_EVENT, {
+    const [eventConfirmHandler, { createEventLoading, createEventError, createEventdata }] = useMutation(CREATE_EVENT, {
         onCompleted: () => {
             setCreating(false)
-            setAlert("تم إضافة المناسبة بنجاح")
+            setAlert("تم إضافة الحدث بنجاح")
+            setModelAlert("")
             window.scrollTo(0, 0)
         },
     })
 
     useEffect(() => {
-        if (!createEventLoading && !createEventError && data) {
+        if (!createEventLoading && !createEventError && createEventdata) {
             setEvents([
                 ...events,
-                { ...data.createEvent, creator: { _id: value.userId } },
+                { ...createEventdata.createEvent, creator: { _id: value.userId } },
             ])
         }
-    }, [data, createEventLoading, createEventError, value.userId]) // eslint-disable-line
+    }, [createEventdata, createEventLoading, createEventError, value.userId]) // eslint-disable-line
 
     if (createEventLoading) { return <Spinner /> }
-
     const showDetailHandler = eventId => {
         const clickedEvent = events.find(event => event._id === eventId)
         setSelectedEvent(clickedEvent)
@@ -109,7 +109,7 @@ export default function EventsPage() {
             {value.token && <Error error={alert} />}
             {creating && (
                 <SimpleModal
-                    title='إضافة مناسبة'
+                    title='إضافة حدث'
                     onCancel={() => {
                         setCreating(false)
                         setAlert("")
@@ -185,7 +185,7 @@ export default function EventsPage() {
             )}
             {selectedEvent && (
                 <SimpleModal
-                    title='حجز المناسبة'
+                    title='حجز الحدث'
                     onCancel={() => {
                         setCreating(false)
                         setSelectedEvent(false)
@@ -207,14 +207,14 @@ export default function EventsPage() {
             )}
             {value.token && (
                 <div className='events-control pt-2 text-center pb-3'>
-                    <h2>شارك مناسباتك الخاصة!</h2>
+                    <h2>شارك أحداثك الخاصة!</h2>
                     <button className='btn' onClick={() => setCreating(true)}>
-                        إنشاء مناسبة
+                        إنشاء حدث
                     </button>
                 </div>
             )}
             <div>
-                <h2 className="mb-3">المناسبات من حولك!!</h2>
+                <h2 className="mb-3">الأحداث من حولك!!</h2>
                 <EventList />
             </div>
         </React.Fragment>

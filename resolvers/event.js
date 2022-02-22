@@ -56,9 +56,8 @@ const eventResolver = {
     }),
     deleteEvent: async (_, args) => {
       try {
-        const events = await Event.find()
         await Event.deleteOne({ _id: args.eventId })
-        return events
+        return Event.find({})
       } catch (err) {
         throw err
       }
