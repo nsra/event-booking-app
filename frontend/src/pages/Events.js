@@ -80,7 +80,7 @@ export default function EventsPage() {
         }
     })
 
-    const [eventConfirmHandler, { createEventLoading, createEventError, createEventdata }] = useMutation(CREATE_EVENT, {
+    const [eventConfirmHandler, { createEventLoading, createEventError }] = useMutation(CREATE_EVENT, {
         onError: (error) => {
             setCreating(false)
             setAlert(error.message)
@@ -91,7 +91,7 @@ export default function EventsPage() {
             setModelAlert("")
             window.scrollTo(0, 0)
             client.refetchQueries({
-                include: "all",
+                include: ["Events"],
             })
         },
     })
@@ -134,9 +134,6 @@ export default function EventsPage() {
                         setPrice("")
                         setDate("")
                         setDescription("")
-                        client.refetchQueries({
-                            include: "all",
-                        })
                     }}
                     confirmText='تأكيد'
                 >
