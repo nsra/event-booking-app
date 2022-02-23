@@ -81,24 +81,26 @@ export default function EventsPage() {
     })
 
     const [eventConfirmHandler, { createEventLoading, createEventError, createEventdata }] = useMutation(CREATE_EVENT, {
+        onError: (error) => {
+            setCreating(false)
+            setAlert(error.message)
+        },
         onCompleted: () => {
             setCreating(false)
             setAlert("تم إضافة الحدث بنجاح")
             setModelAlert("")
             window.scrollTo(0, 0)
+            client.refetchQueries({
+                include: "all",
+            })
         },
     })
 
-    useEffect(() => {
-        if (!createEventLoading && !createEventError && createEventdata) {
-            setEvents([
-                ...events,
-                { ...createEventdata.createEvent, creator: { _id: value.userId } },
-            ])
-        }
-    }, [createEventdata, createEventLoading, createEventError, value.userId]) // eslint-disable-line
-
     if (createEventLoading) { return <Spinner /> }
+    if (createEventError) { 
+        setAlert(createEventError.message) 
+        return; 
+    }
     const showDetailHandler = eventId => {
         const clickedEvent = events.find(event => event._id === eventId)
         setSelectedEvent(clickedEvent)
@@ -132,6 +134,9 @@ export default function EventsPage() {
                         setPrice("")
                         setDate("")
                         setDescription("")
+                        client.refetchQueries({
+                            include: "all",
+                        })
                     }}
                     confirmText='تأكيد'
                 >
