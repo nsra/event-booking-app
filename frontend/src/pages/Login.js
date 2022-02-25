@@ -15,7 +15,7 @@ export default function LoginPage() {
         const [password, setPassword] = useState("")
         const navigate = useNavigate();
         const [login, { loading, data }] = useMutation(LOGIN, {
-            onError: (error) => setAlert(error.message)
+            //onError: (error) => setAlert(error.message)
         })
         useEffect(() => {
             if (!loading && data) {

@@ -25,10 +25,10 @@ export default function EventsPage() {
         onSubscriptionData: async ({ subscriptionData }) => {
             if (subscriptionData.data) {
                 const addedEvent = subscriptionData.data.eventAdded
-                setAlert(`حدث جديد بعنوان: ${addedEvent.title}، أُضيف للتو`)
+                setAlert(`مناسبة جديدة بعنوان: ${addedEvent.title}، أُضيفت للتو`)
                 window.scrollTo(0, 0)
             }
-            if (subscriptionData.errors) setAlert("خطأ في جلب الأحداث الجديدة")
+            if (subscriptionData.errors) setAlert("خطأ في جلب المناسبات الجديدة")
         }
     })
 
@@ -75,7 +75,7 @@ export default function EventsPage() {
         },
         onCompleted: () => {
             setSelectedEvent(null)
-            setAlert("تم حجز الحدث بنجاح")
+            setAlert("تم حجز المناسبة بنجاح")
             window.scrollTo(0, 0)
         }
     })
@@ -87,7 +87,7 @@ export default function EventsPage() {
         },
         onCompleted: () => {
             setCreating(false)
-            setAlert("تم إضافة الحدث بنجاح")
+            setAlert("تم إضافة المناسبة بنجاح")
             setModelAlert("")
             window.scrollTo(0, 0)
             client.refetchQueries({
@@ -111,7 +111,7 @@ export default function EventsPage() {
             {value.token && <Error error={alert} />}
             {creating && (
                 <SimpleModal
-                    title='إضافة حدث'
+                    title='إضافة مناسبة'
                     onCancel={() => {
                         setCreating(false)
                         setAlert("")
@@ -187,7 +187,7 @@ export default function EventsPage() {
             )}
             {selectedEvent && (
                 <SimpleModal
-                    title='حجز الحدث'
+                    title='حجز المناسبة'
                     onCancel={() => {
                         setCreating(false)
                         setSelectedEvent(false)
@@ -209,14 +209,14 @@ export default function EventsPage() {
             )}
             {value.token && (
                 <div className='events-control pt-2 text-center pb-3'>
-                    <h2>شارك أحداثك الخاصة!</h2>
+                    <h2>شارك مناسباتك الخاصة!</h2>
                     <button className='btn' onClick={() => setCreating(true)}>
-                        إنشاء حدث
+                        إنشاء مناسبة
                     </button>
                 </div>
             )}
             <div>
-                <h2 className="mb-3">الأحداث من حولك!!</h2>
+                <h2 className="mb-3">المناسبات من حولك!!</h2>
                 <EventList />
             </div>
         </React.Fragment>

@@ -4,13 +4,13 @@ import './index.css'
 import "bootstrap/dist/js/bootstrap.min.js"
 import "bootstrap/dist/css/bootstrap.rtl.min.css"
 import App from './App' 
-import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider, split } from "@apollo/client" 
+import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider, split } from "@apollo/client" 
 import { getMainDefinition } from "@apollo/client/utilities" 
 import { WebSocketLink } from "@apollo/client/link/ws" 
 import { setContext } from "apollo-link-context" 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css" 
 
-const httpLink = new HttpLink({
+const httpLink = createHttpLink({
   uri: 'http://localhost:4000/graphql', 
   credentials: 'same-origin'
 }) 

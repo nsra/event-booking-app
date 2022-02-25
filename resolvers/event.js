@@ -10,9 +10,7 @@ const eventResolver = {
   Query: {
     events: async () => {
       try {
-        const events = await Event.find({}).sort({
-          created_at: 'desc'
-        }).populate('creator')
+        const events = await Event.find({}).sort({ created_at: 'desc' }).populate('creator')
         return events.map(event => transformEvent(event))
       } catch (error) {
         throw error
