@@ -6,10 +6,11 @@ import LoginPage from './pages/Login'
 import EventsPage from './pages/Events' 
 import BookingsPage from './pages/Bookings' 
 import SignUpPage from './pages/SignUp' 
-import AuthContext from './context/auth-context'
+// import AuthContext from './context/auth-context'
 import PrivateRoute from './components/PrivateRoute' 
+const AuthContext = React.createContext({})
 
-function App() {
+const App = () => {
   let [token, setToken] = useState(localStorage.getItem('token') || '') 
   let [userId, setUserId] = useState(localStorage.getItem('userId') || '') 
   let [username, setUsername] = useState(localStorage.getItem('username') || '') 
@@ -58,4 +59,9 @@ function App() {
   ) 
 }
 
-export default App 
+const exportedObject = {
+  App,
+  AuthContext,
+};
+
+export default exportedObject

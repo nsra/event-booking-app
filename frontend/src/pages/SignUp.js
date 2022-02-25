@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client'
 import { CREATE_USER } from '../queries'
 import Error from '../components/Error'
 import Spinner from '../components/Spinner'
-import AuthContext from '../context/auth-context'
+import AuthContext from '../App'
 
 export default function SignUpPage() {
     const [alert, setAlert] = useState("")
