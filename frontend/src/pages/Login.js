@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../queries'
-import AuthContext from '../App'
+import AuthContext from '../context/auth-context'
 import Error from '../components/Error'
 import Spinner from '../components/Spinner'
 

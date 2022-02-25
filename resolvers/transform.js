@@ -11,5 +11,3 @@ const transformBooking = booking => ({
 
 exports.transformEvent = transformEvent 
 exports.transformBooking = transformBooking 
-
-// module.exports = { transformEvent, transformBooking }

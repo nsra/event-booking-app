@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import AuthContext from '../App'
+import AuthContext from '../context/auth-context'
 
 export default function MainNavigation() {
     const value = useContext(AuthContext)

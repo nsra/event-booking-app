@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import AuthContext from '../App'
+import AuthContext from '../context/auth-context'
 
 export default function EventItem({ _id, title, price, date, description, creator, onDetail }) {
     const value = useContext(AuthContext)

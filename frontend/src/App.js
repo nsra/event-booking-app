@@ -6,11 +6,10 @@ import LoginPage from './pages/Login'
 import EventsPage from './pages/Events' 
 import BookingsPage from './pages/Bookings' 
 import SignUpPage from './pages/SignUp' 
-// import AuthContext from './context/auth-context'
+import AuthContext from './context/auth-context'
 import PrivateRoute from './components/PrivateRoute' 
-const AuthContext = React.createContext({})
 
-const App = () => {
+export default function App() {
   let [token, setToken] = useState(localStorage.getItem('token') || '') 
   let [userId, setUserId] = useState(localStorage.getItem('userId') || '') 
   let [username, setUsername] = useState(localStorage.getItem('username') || '') 
@@ -50,7 +49,6 @@ const App = () => {
                 <BookingsPage />
               </PrivateRoute>
             } />
-
           </Routes>
           </main>
         </AuthContext.Provider>
@@ -59,9 +57,3 @@ const App = () => {
   ) 
 }
 
-const exportedObject = {
-  App,
-  AuthContext,
-};
-
-export default exportedObject
