@@ -44,7 +44,7 @@ export default function EventsPage() {
         if (loading) { return <Spinner /> }
         if (error) {
             setAlert(error.message)
-            return;
+            return
         }
       
         client.refetchQueries({
@@ -99,7 +99,7 @@ export default function EventsPage() {
     if (createEventLoading) { return <Spinner /> }
     if (createEventError) { 
         setAlert(createEventError.message) 
-        return; 
+        return
     }
     const showDetailHandler = eventId => {
         const clickedEvent = events.find(event => event._id === eventId)

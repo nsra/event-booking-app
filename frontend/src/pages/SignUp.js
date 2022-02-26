@@ -13,7 +13,7 @@ export default function SignUpPage() {
         const [username, setUsername] = useState("")
         const [email, setEmail] = useState("")
         const [password, setPassword] = useState("")
-        const [signup, { loading, data }] = useMutation(CREATE_USER, {
+        const [signup, { loading, error, data }] = useMutation(CREATE_USER, {
             onError: (error) => setAlert(error.message),
             onCompleted: () => {
                 setAlert("تم إنشاء الحساب بنجاح")
@@ -30,13 +30,14 @@ export default function SignUpPage() {
         }, [data, loading])
 
         if (loading) return <Spinner />
+        //if (error) return error.message
 
         return (
             <form className='auth-form' onSubmit={(event) => {
                 event.preventDefault()
                 if (username.trim().length < 3 || password.trim().length < 6) {
                     setAlert("يجب ملئ جميع الحقول بالشكل الصحيح!")
-                    return;
+                    return
                 }
                 signup({
                     variables: { username: username.trim(), email: email.trim(), password: password.trim() }

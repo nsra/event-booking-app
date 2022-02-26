@@ -1,6 +1,6 @@
 import React from 'react' 
 import Modal from "react-bootstrap/Modal"
-import Button from "react-bootstrap/Button";
+import Button from "react-bootstrap/Button"
  
 export default function SimpleModal
   ({
@@ -28,7 +28,7 @@ export default function SimpleModal
         </Modal.Footer>
       </Modal>
     </>
-  );
+  )
 }
 
 

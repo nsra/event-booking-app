@@ -16,11 +16,11 @@ export default function BookingsPage () {
         if (loading) { return <Spinner /> }
         if (error) {
             setAlert(error.message)
-            return;
+            return
         }
 
         client.refetchQueries({
-            include: "all",
+            include: "active",
         })
 
         return (

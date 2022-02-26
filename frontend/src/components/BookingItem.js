@@ -10,5 +10,5 @@ export default function BookingItem({ _id, event, createdAt, onCancelBooking }) 
         إلغاء
       </button>
     </li>
-  );
+  )
 }
