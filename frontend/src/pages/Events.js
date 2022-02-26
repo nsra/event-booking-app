@@ -107,8 +107,20 @@ export default function EventsPage() {
     }
 
     return (
-        <React.Fragment>
+        <div>
             {value.token && <Error error={alert} />}
+            {value.token && (
+                <div className='events-control pt-2 text-center pb-3'>
+                    <h2>شارك مناسباتك الخاصة!</h2>
+                    <button className='btn' onClick={() => setCreating(true)}>
+                        إنشاء مناسبة
+                    </button>
+                </div>
+            )}
+            <div>
+                <h2 className="mb-3">المناسبات من حولك!</h2>
+                <EventList />
+            </div>
             {creating && (
                 <SimpleModal
                     title='إضافة مناسبة'
@@ -207,18 +219,6 @@ export default function EventsPage() {
                     <p>{selectedEvent.description}</p>
                 </SimpleModal>
             )}
-            {value.token && (
-                <div className='events-control pt-2 text-center pb-3'>
-                    <h2>شارك مناسباتك الخاصة!</h2>
-                    <button className='btn' onClick={() => setCreating(true)}>
-                        إنشاء مناسبة
-                    </button>
-                </div>
-            )}
-            <div>
-                <h2 className="mb-3">المناسبات من حولك!!</h2>
-                <EventList />
-            </div>
-        </React.Fragment>
+        </div>
     )
 }
