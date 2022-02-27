@@ -32,27 +32,26 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <React.Fragment>
-        <AuthContext.Provider value={{ token, userId, username, login, logout }}>
-          <Navbar />
-          <main className="main-content">
-          <Routes>
-            {token && <Route path="/login" element={<Navigate replace to="/events" />} exact />}
-            <Route path='/login' element={<LoginPage />} />
-            {token && <Route path="/signup" element={<Navigate replace to="/events" />} exact />}
-            <Route path='/signup' element={<SignUpPage />} exact />
-            <Route path="/" element={<Navigate replace to="/events" />} exact />
-            <Route path='/events' element={<EventsPage />} />
-         
-            <Route path='/bookings' element={
-              <PrivateRoute>
-                <BookingsPage />
-              </PrivateRoute>
-            } />
-          </Routes>
-          </main>
-        </AuthContext.Provider>
-      </React.Fragment>
+      <AuthContext.Provider value={{ token, userId, username, login, logout }}>
+        <Navbar />
+        <main className="main-content">
+        <Routes>
+          {token && <Route path="/login" element={<Navigate replace to="/events" />} exact />}
+          <Route path='/login' element={<LoginPage />} />
+          {token && <Route path="/signup" element={<Navigate replace to="/events" />} exact />}
+          <Route path='/signup' element={<SignUpPage />} exact />
+          <Route path="/" element={<Navigate replace to="/events" />} exact />
+          <Route path='/events' element={<EventsPage />} />
+        
+          <Route path='/bookings' element={
+            <PrivateRoute>
+              <BookingsPage />
+            </PrivateRoute>
+          } />
+          
+        </Routes>
+        </main>
+      </AuthContext.Provider>
     </BrowserRouter>
   ) 
 }

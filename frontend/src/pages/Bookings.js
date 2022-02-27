@@ -24,7 +24,7 @@ export default function BookingsPage () {
         })
 
         return (
-            <React.Fragment>
+            <div>
                 <Error error={alert} />
                 { cancelBookingLoading ? (
                     <Spinner />
@@ -44,7 +44,7 @@ export default function BookingsPage () {
                         </div>
                     </div>
                 )}
-            </React.Fragment>
+            </div>
         )
     }
 
