@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Spinner from '../components/Spinner'
 import { BOOKINGS, CANCEL_BOOKING } from '../queries'
 import BookingItem from '../components/BookingItem'
