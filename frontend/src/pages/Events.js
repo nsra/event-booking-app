@@ -46,10 +46,6 @@ export default function EventsPage() {
             setAlert(error.message)
             return
         }
-      
-        client.refetchQueries({
-            include: "active",
-        })
 
         return (
             <div className="container-fluid">
@@ -77,6 +73,9 @@ export default function EventsPage() {
             setSelectedEvent(null)
             setAlert("تم حجز المناسبة بنجاح")
             window.scrollTo(0, 0)
+            client.refetchQueries({
+                include: "Bookings",
+            })
         }
     })
 
