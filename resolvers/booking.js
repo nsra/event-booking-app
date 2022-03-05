@@ -21,7 +21,7 @@ const bookingResolver = {
     bookEvent: combineResolvers(isLoggedin, async (_, args, context) => {
       const existingBooking = await Booking.find({ event: args.eventId }).find({ user: context.user }) 
       if (existingBooking.length > 0) {
-        throw new UserInputError('قد حجزت هذه المناسبة بالفعل مسبقًا!!') 
+        throw new UserInputError('قد حجزت هذه المناسبة بالفعل مسبقًا!') 
       }
       const fetchedEvent = await Event.findOne({ _id: args.eventId }) 
       const booking = new Booking({

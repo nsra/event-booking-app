@@ -30,7 +30,7 @@ const eventResolver = {
     createEvent: combineResolvers(isLoggedin, async (_, args, context) => {
       const ExistingEvent = await Event.findOne({ title: args.eventInput.title })
       if (ExistingEvent) {
-        throw new UserInputError('يوجد لدينا مناسبة بنفس هذا العنوان، الرجاء اختيار عنوان آخر!!')
+        throw new UserInputError('يوجد لدينا مناسبة بنفس هذا العنوان، الرجاء اختيار عنوان آخر!')
       }
       const event = new Event({
         title: args.eventInput.title,

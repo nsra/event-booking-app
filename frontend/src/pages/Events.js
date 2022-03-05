@@ -177,7 +177,7 @@ export default function EventsPage() {
                             <input
                                 className="form-control"
                                 required
-                                type='datetime-local'
+                                type='date'
                                 id='date'
                                 value={date}
                                 onChange={({ target }) => setDate(target.value)}
