@@ -1,6 +1,9 @@
-require('dotenv').config()
 const express = require('express')
 const { ApolloServer } = require("apollo-server-express")
+const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core')
+const http = require('http')
+
+require('dotenv').config()
 const { typeDefs } = require('./schema/index')
 const { resolvers } = require('./resolvers/index')
 const mongoose = require('mongoose')
@@ -9,17 +12,16 @@ const jwt = require('jsonwebtoken')
 const { SubscriptionServer } = require('subscriptions-transport-ws')
 const { makeExecutableSchema } = require('@graphql-tools/schema')
 const { execute, subscribe } = require('graphql')
-const http = require('http')
-const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core')
 
 async function startApolloServer(typeDefs, resolvers) {
     const app = express()
+    const httpServer = http.createServer(app)
+
     app.use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', process.env.APP_URL)
         next()
     })
 
-    const httpServer = http.createServer(app)
     const schema = makeExecutableSchema({
         typeDefs,
         resolvers,

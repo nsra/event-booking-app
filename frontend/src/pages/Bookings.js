@@ -28,7 +28,6 @@ export default function BookingsPage () {
         return (
             <div>
                 <Error error={alert} />
-               
                 <div className="row">
                     <div className="col-md-8 offset-md-2">
                         {data.bookings.map(booking => (

@@ -16,10 +16,10 @@ const authResolver = {
             }
             const userForToken = {
                 email: user.email,
-                id: user._id,
+                id: user.id,
             }
             return {
-                userId: user._id,
+                userId: user.id,
                 token: jwt.sign(userForToken, process.env.JWT_SECRET),
                 username: user.username
             }
@@ -42,10 +42,10 @@ const authResolver = {
                 await user.save()
                 const userForToken = {
                     email: user.email,
-                    id: user._id,
+                    id: user.id,
                 }
                 return {
-                    userId: user._id,
+                    userId: user.id,
                     token: jwt.sign(userForToken, process.env.JWT_SECRET),
                     username: user.username
                 }
