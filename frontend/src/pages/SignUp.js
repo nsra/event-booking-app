@@ -30,7 +30,7 @@ export default function SignUpPage() {
         }, [data, loading])
 
         if (loading) return <Spinner />
-        //if (error) return error.message
+        if (error) return error.message
 
         return (
             <form className='auth-form' onSubmit={(event) => {
