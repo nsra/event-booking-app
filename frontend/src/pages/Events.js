@@ -46,9 +46,9 @@ export default function EventsPage() {
             return
         }
 
-        client.refetchQueries({
-            include: ["Events"],
-        })
+        // client.refetchQueries({
+        //     include: ["Events"],
+        // })
 
         return (
             <div className="container-fluid">
@@ -101,7 +101,6 @@ export default function EventsPage() {
     }
     const showDetailHandler = eventId => {
         const clickedEvent = events.find(event => event._id === eventId)
-        console.log(clickedEvent.date)
         setSelectedEvent(clickedEvent)
     }
 
