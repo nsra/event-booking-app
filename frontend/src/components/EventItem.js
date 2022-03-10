@@ -12,7 +12,7 @@ export default function EventItem({ _id, title, price, date, description, creato
                 </div>
                 <div className="p-3">
                     <h2>
-                        ${price} - {new Date(date).toLocaleDateString()}
+                        ${price} - {date.split('.')[0].split(' ')[0].replace(/-/g, "/")}
                     </h2>
                 </div>
                 <div className="p-2">

@@ -46,6 +46,10 @@ export default function EventsPage() {
             return
         }
 
+        client.refetchQueries({
+            include: ["Events"],
+        })
+
         return (
             <div className="container-fluid">
                 <div className="row justify-content-center">
@@ -53,7 +57,6 @@ export default function EventsPage() {
                         <EventItem
                             key={event._id}
                             {...event}
-                            userId={value.userId}
                             onDetail={showDetailHandler}
                         />
                     ))}
@@ -72,9 +75,6 @@ export default function EventsPage() {
             setSelectedEvent(null)
             setAlert("تم حجز المناسبة بنجاح")
             window.scrollTo(0, 0)
-            // client.refetchQueries({
-            //     include: "Bookings",
-            // })
         }
     })
 
@@ -212,8 +212,7 @@ export default function EventsPage() {
                 >
                     <h4 className='mb-4'>{selectedEvent.title}</h4>
                     <h4 className='mb-4'>
-                        ${selectedEvent.price} -{' '}
-                        {selectedEvent.date}
+                        ${selectedEvent.price} {'-'} {selectedEvent.date.split('.')[0].replace(/-/g, "/")}
                     </h4>
                     <p>{selectedEvent.description}</p>
                 </SimpleModal>
