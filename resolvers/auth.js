@@ -30,7 +30,7 @@ const authResolver = {
                 const existingUser = await User.findOne({ email: args.userInput.email })
                 if (existingUser) {
                     throw new UserInputError('!!هذا الحساب موجود مسبقًا لدينا', {
-                        invalidArgs: args.email,
+                        invalidArgs: args.userInput.email,
                     })
                 }
                 const hashedPassword = await bcrypt.hash(args.userInput.password, 12)
@@ -40,15 +40,16 @@ const authResolver = {
                     password: hashedPassword
                 })
                 await user.save()
-                const userForToken = {
-                    email: user.email,
-                    id: user.id,
-                }
-                return {
-                    userId: user.id,
-                    token: jwt.sign(userForToken, process.env.JWT_SECRET),
-                    username: user.username
-                }
+                // const userForToken = {
+                //     email: user.email,
+                //     id: user.id,
+                // }
+                // return {
+                //     userId: user.id,
+                //     token: jwt.sign(userForToken, process.env.JWT_SECRET),
+                //     username: user.username
+                // }
+                return user
             } catch (err) {
                 throw err
             }
