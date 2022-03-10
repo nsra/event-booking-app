@@ -19,11 +19,9 @@ export default function BookingsPage () {
             return
         }
 
-        if(data){
-            client.refetchQueries({
-                include: ["Bookings"]
-            })
-        }
+        client.refetchQueries({
+            include: ["Bookings"],
+        })
 
         return (
             <div>

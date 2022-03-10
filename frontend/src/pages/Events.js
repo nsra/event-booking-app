@@ -46,9 +46,9 @@ export default function EventsPage() {
             return
         }
 
-        // client.refetchQueries({
-        //     include: ["Events"],
-        // })
+        client.refetchQueries({
+            include: ["Events"],
+        })
 
         return (
             <div className="container-fluid">
