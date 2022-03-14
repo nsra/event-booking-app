@@ -15,12 +15,18 @@ export default function App() {
   let [username, setUsername] = useState(localStorage.getItem('username') || '') 
 
   const login = (userToken, loginUserId, username) => {
-    setToken(userToken) 
-    setUserId(loginUserId) 
-    setUsername(username)
-    if(userToken) localStorage.setItem(["token"], userToken) 
-    if(loginUserId) localStorage.setItem("userId", loginUserId) 
-    if(username) localStorage.setItem("username", username) 
+    if(userToken) {
+      setToken(userToken) 
+      localStorage.setItem("token", userToken) 
+    }
+    if(loginUserId) {
+      setUserId(loginUserId) 
+      localStorage.setItem("userId", loginUserId)
+    } 
+    if(username) {
+      setUsername(username)
+      localStorage.setItem("username", username) 
+    }
   } 
 
   const logout = () => {
