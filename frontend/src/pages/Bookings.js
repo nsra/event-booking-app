@@ -33,8 +33,7 @@ export default function BookingsPage () {
                                 key={booking._id}
                                 {...booking}
                                 onCancelBooking={() => {
-                                    canceledBooking = booking._id
-                                    cancelBooking({ variables: { bookingId: canceledBooking } })
+                                    cancelBooking({ variables: { bookingId: booking._id } })
                                 }}
                             />
                         ))}

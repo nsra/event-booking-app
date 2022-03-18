@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client'
 import { EVENTS, BOOK_EVENT, CREATE_EVENT, EVENT_ADDED } from '../queries'
 import EventItem from '../components/EventItem'
@@ -9,7 +9,6 @@ import Error from '../components/Error'
 import Spinner from '../components/Spinner'
 
 export default function EventsPage() {
-    const [events, setEvents] = useState([])
     const [selectedEvent, setSelectedEvent] = useState(null)
     const value = useContext(AuthContext)
     const [alert, setAlert] = useState('')
@@ -32,13 +31,7 @@ export default function EventsPage() {
     })
 
     function EventList() {
-        const { loading, error, data } = useQuery(EVENTS)
-
-        useEffect(() => {
-            if(!loading && !error && data) {
-                setEvents(data.events)
-            }
-        }, [loading, error,data])
+        const { loading, error, data } = useQuery(EVENTS) 
         
         if (loading) { return <Spinner /> }
         if (error) {
@@ -49,6 +42,11 @@ export default function EventsPage() {
         client.refetchQueries({
             include: ["Events"],
         })
+
+        const showDetailHandler = eventId => {
+            const clickedEvent = data.events.find(event => event._id === eventId)
+            setSelectedEvent(clickedEvent)
+        }
 
         return (
             <div className="container-fluid">
@@ -74,7 +72,6 @@ export default function EventsPage() {
         onCompleted: () => {
             setSelectedEvent(null)
             setAlert("تم حجز المناسبة بنجاح")
-            window.scrollTo(0, 0)
         }
     })
 
@@ -87,7 +84,6 @@ export default function EventsPage() {
             setCreating(false)
             setAlert("تم إضافة المناسبة بنجاح")
             setModelAlert("")
-            window.scrollTo(0, 0)
             client.refetchQueries({
                 include: ["Events"],
             })
@@ -99,10 +95,7 @@ export default function EventsPage() {
         setAlert(createEventError.message) 
         return
     }
-    const showDetailHandler = eventId => {
-        const clickedEvent = events.find(event => event._id === eventId)
-        setSelectedEvent(clickedEvent)
-    }
+   
 
     return (
         <div>
@@ -200,7 +193,7 @@ export default function EventsPage() {
                     title='حجز المناسبة'
                     onCancel={() => {
                         setCreating(false)
-                        setSelectedEvent(false)
+                        setSelectedEvent(null)
                         setAlert("")
                     }}
                     onConfirm={() => {

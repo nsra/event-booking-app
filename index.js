@@ -1,7 +1,10 @@
-const express = require('express')
-const { ApolloServer } = require("apollo-server-express")
+const { ApolloServer } = require('apollo-server-express')
 const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core')
-const http = require('http')
+const express = require('express')
+const { createServer } = require('http')
+const { makeExecutableSchema } = require('@graphql-tools/schema')
+const { WebSocketServer } = require ('ws');
+const { useServer } = require('graphql-ws/lib/use/ws');
 
 require('dotenv').config()
 const { typeDefs } = require('./schema/index')
@@ -9,13 +12,10 @@ const { resolvers } = require('./resolvers/index')
 const mongoose = require('mongoose')
 const User = require('./models/user')
 const jwt = require('jsonwebtoken')
-const { SubscriptionServer } = require('subscriptions-transport-ws')
-const { makeExecutableSchema } = require('@graphql-tools/schema')
-const { execute, subscribe } = require('graphql')
 
 async function startApolloServer(typeDefs, resolvers) {
     const app = express()
-    const httpServer = http.createServer(app)
+    const httpServer = createServer(app)
 
     app.use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', process.env.APP_URL)
@@ -26,6 +26,13 @@ async function startApolloServer(typeDefs, resolvers) {
         typeDefs,
         resolvers,
     })
+
+    const wsServer = new WebSocketServer({
+        server: httpServer,
+        path: '/graphql',
+    });
+
+    const serverCleanup = useServer({ schema }, wsServer);
 
     const server = new ApolloServer({
         schema,
@@ -45,25 +52,13 @@ async function startApolloServer(typeDefs, resolvers) {
                 async serverWillStart() {
                     return {
                         async drainServer() {
-                            subscriptionServer.close()
+                            serverCleanup.dispose()
                         }
                     }
                 }
             }
         ],
     })
-
-    SubscriptionServer.create(
-        {
-            schema,
-            execute,
-            subscribe
-        },
-        {
-            server: httpServer,
-            path: server.graphqlPath
-        }
-    )
 
     await server.start()
     server.applyMiddleware({ app })
