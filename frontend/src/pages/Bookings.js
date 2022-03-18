@@ -7,7 +7,6 @@ import Error from '../components/Error'
 
 export default function BookingsPage () {
     const [alert, setAlert] = useState("")
-    let canceledBooking = ""
     const client = useApolloClient()
 
     function BookingsList() {

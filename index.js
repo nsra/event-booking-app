@@ -5,7 +5,6 @@ const { createServer } = require('http')
 const { makeExecutableSchema } = require('@graphql-tools/schema')
 const { WebSocketServer } = require ('ws');
 const { useServer } = require('graphql-ws/lib/use/ws');
-
 require('dotenv').config()
 const { typeDefs } = require('./schema/index')
 const { resolvers } = require('./resolvers/index')
