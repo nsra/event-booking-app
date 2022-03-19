@@ -1,4 +1,4 @@
-import {Puff} from 'react-loader-spinner';
+import {Puff} from 'react-loader-spinner'
 
 export const Spinner = () => (
   <div className="d-flex justify-content-center ">
@@ -8,6 +8,6 @@ export const Spinner = () => (
         width={100}
     />
   </div>
-);
+)
 
-export default Spinner;
+export default Spinner
