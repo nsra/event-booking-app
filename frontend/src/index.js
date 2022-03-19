@@ -7,7 +7,6 @@ import App from './App'
 import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider, split } from "@apollo/client" 
 import { getMainDefinition } from "@apollo/client/utilities" 
 import { setContext } from "apollo-link-context" 
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css" 
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 
