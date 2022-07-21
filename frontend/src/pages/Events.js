@@ -15,7 +15,7 @@ export default function EventsPage() {
     const [modelAlert, setModelAlert] = useState('')
     const [creating, setCreating] = useState(false)
     const [title, setTitle] = useState("")
-    const [price, setPrice] = useState("")
+    const [price, setPrice] = useState("");
     const [date, setDate] = useState("")
     const [description, setDescription] = useState("")
     const client = useApolloClient()
